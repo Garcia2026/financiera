@@ -1,0 +1,105 @@
+/* src/assets/css/themes.css */
+
+/* ------------------------- */
+/* ----- TEMA LIGERO ----- */
+/* (Por defecto, sin clase específica o con :root si prefieres) */
+/* ------------------------- */
+:root {
+  --bg-primary: #F9FAFB; /* gray-50 muy claro, casi blanco */
+  --bg-secondary: #FFFFFF; /* blanco */
+  --bg-accent: #EFF6FF; /* blue-50 */
+  --bg-navbar: rgba(255, 255, 255, 0.85); /* Blanco con transparencia para navbar */
+  --bg-modal: rgba(243, 244, 246, 0.95); /* gray-100 con transparencia para modales */
+
+  --text-primary: #1F2937; /* gray-800 */
+  --text-secondary: #4B5563; /* gray-600 */
+  --text-accent: #2563EB; /* blue-600 */
+  --text-on-accent-bg: #FFFFFF; /* Texto blanco sobre fondos de acento */
+
+  --border-primary: #D1D5DB; /* gray-300 */
+  --border-secondary: #E5E7EB; /* gray-200 */
+  --border-accent: #93C5FD; /* blue-300 */
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-navbar: rgba(0, 0, 0, 0.07);
+
+  /* Colores específicos de la app (puedes expandir esto) */
+  --brand-emerald: #10B981; /* emerald-500 */
+  --brand-emerald-text: #059669; /* emerald-600 (más oscuro para texto) */
+  --brand-red: #EF4444; /* red-500 */
+  --brand-red-text: #DC2626; /* red-600 */
+  --brand-blue: #3B82F6; /* blue-500 */
+  --brand-blue-text: #2563EB; /* blue-600 */
+  --brand-purple: #8B5CF6; /* purple-500 */
+  --brand-purple-text: #7C3AED; /* purple-600 */
+  --brand-pink: #EC4899; /* pink-500 */
+  --brand-pink-text: #DB2777; /* pink-600 */
+  --brand-yellow: #F59E0B; /* amber-500 */
+  --brand-yellow-text: #D97706; /* amber-600 */
+
+  --input-bg: #FFFFFF;
+  --input-border: #D1D5DB; /* gray-300 */
+  --input-text: #1F2937; /* gray-800 */
+  --input-focus-ring: #3B82F6; /* blue-500 */
+
+  --scrollbar-thumb: #A0AEC0; /* gray-400 */
+  --scrollbar-track: #E2E8F0; /* gray-200 */
+
+  --chart-grid-color: rgba(0, 0, 0, 0.1);
+  --chart-tick-color: #4B5563; /* gray-600 */
+  --chart-tooltip-bg: rgba(255, 255, 255, 0.95);
+  --chart-tooltip-text: #1F2937;
+  --chart-legend-text: #4B5563;
+}
+
+/* ------------------------- */
+/* ------ TEMA OSCURO ------ */
+/* (Aplicado cuando el body/html tiene la clase 'theme-dark') */
+/* ------------------------- */
+.theme-dark {
+  --bg-primary: #111827; /* gray-900 */
+  --bg-secondary: #1F2937; /* gray-800 */
+  --bg-accent: #374151; /* gray-700 */
+  --bg-navbar: rgba(17, 24, 39, 0.85); /* gray-900 con transparencia para navbar */
+  --bg-modal: rgba(31, 41, 55, 0.95); /* gray-800 con transparencia para modales */
+
+  --text-primary: #F3F4F6; /* gray-100 */
+  --text-secondary: #9CA3AF; /* gray-400 */
+  --text-accent: #60A5FA; /* blue-400 */
+  --text-on-accent-bg: #FFFFFF; /* Texto blanco sobre fondos de acento */
+
+  --border-primary: #374151; /* gray-700 */
+  --border-secondary: #4B5563; /* gray-600 */
+  --border-accent: #2563EB; /* blue-600 */
+
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-color-navbar: rgba(0, 0, 0, 0.2);
+
+  /* Colores específicos de la app (versión oscura/brillante) */
+  --brand-emerald: #34D399; /* emerald-400 */
+  --brand-emerald-text: #34D399;
+  --brand-red: #F87171; /* red-400 */
+  --brand-red-text: #F87171;
+  --brand-blue: #60A5FA; /* blue-400 */
+  --brand-blue-text: #60A5FA;
+  --brand-purple: #A78BFA; /* purple-400 */
+  --brand-purple-text: #A78BFA;
+  --brand-pink: #F472B6; /* pink-400 */
+  --brand-pink-text: #F472B6;
+  --brand-yellow: #FBBF24; /* amber-400 */
+  --brand-yellow-text: #FBBF24;
+
+  --input-bg: #1F2937; /* gray-800 */
+  --input-border: #4B5563; /* gray-600 */
+  --input-text: #F3F4F6; /* gray-100 */
+  --input-focus-ring: #34D399; /* emerald-400 */
+
+  --scrollbar-thumb: #4B5563; /* gray-600 */
+  --scrollbar-track: #1F2937; /* gray-800 */
+
+  --chart-grid-color: rgba(255, 255, 255, 0.1);
+  --chart-tick-color: #9CA3AF; /* gray-400 */
+  --chart-tooltip-bg: rgba(17, 24, 39, 0.9);
+  --chart-tooltip-text: #F3F4F6;
+  --chart-legend-text: #9CA3AF;
+}
