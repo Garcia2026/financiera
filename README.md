@@ -25,3 +25,29 @@ The following variables must be set:
 - `VITE_FIREBASE_MESSAGING_SENDER_ID`
 - `VITE_FIREBASE_APP_ID`
 - `VITE_FIREBASE_MEASUREMENT_ID`
+
+## Build and run
+
+Install dependencies with:
+
+```bash
+npm install
+```
+
+Start a development server:
+
+```bash
+npm run dev
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Preview the compiled app:
+
+```bash
+npm run serve
+```
