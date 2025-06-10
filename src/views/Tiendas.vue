@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 text-slate-700">
 
-    <div class="bg-white border border-gray-200 rounded-lg shadow-lg mb-8 py-4 px-6">
+    <div class="md3-card mb-8 py-4 px-6">
       <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-emerald-500 mb-2 text-center">Registro de Tiendas</h2>
       <p class="text-slate-500 text-center text-sm md:text-base">Gestiona y controla tus tiendas y servicios</p>
     </div>
@@ -9,11 +9,11 @@
     <div v-if="tiendas.length > 0" class="mb-8">
       <h3 class="text-xl font-semibold text-teal-600 mb-4">Resumen General</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="light-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-md hover:shadow-teal-500/10">
+        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10">
           <h4 class="font-bold text-lg text-slate-800 mb-1">Total de Tiendas Registradas</h4>
           <p class="text-3xl font-bold text-slate-700">{{ resumenGeneral.totalTiendas }}</p>
         </div>
-        <div class="light-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-md hover:shadow-teal-500/10">
+        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10">
           <h4 class="font-bold text-lg text-slate-800 mb-1">Costo Total General</h4>
           <p class="text-3xl font-bold text-slate-700">Q{{ (resumenGeneral.costoTotalGeneral || 0).toFixed(2) }}</p>
         </div>
@@ -24,7 +24,7 @@
       <h3 class="text-xl font-semibold text-emerald-600 mb-4">Resumen por Marca</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div v-for="(marcaResumen, index) in resumenPorMarca" :key="index"
-             class="light-card border-l-4 transition-all duration-300 hover:shadow-md"
+             class="md3-card border-l-4 transition-all duration-300"
              :class="[`border-${getBrandColor(marcaResumen.nombre)}-500`, `hover:shadow-${getBrandColor(marcaResumen.nombre)}-500/10`]">
           <h4 class="font-bold text-lg text-slate-800 mb-1">{{ marcaResumen.nombre }}</h4>
           <p class="text-sm text-slate-500">Tiendas: <span class="font-medium text-slate-700">{{ marcaResumen.conteo }}</span></p>
@@ -37,7 +37,7 @@
       <h3 class="text-xl font-semibold text-teal-600 mb-4">Resumen por Consultor</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div v-for="(consultorResumen, index) in resumenPorConsultor" :key="index"
-             class="light-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-md hover:shadow-teal-500/10">
+             class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10">
           <h4 class="font-bold text-lg text-slate-800 mb-1">{{ consultorResumen.nombre }}</h4>
           <p class="text-sm text-slate-500">Tiendas Asignadas: <span class="font-medium text-slate-700">{{ consultorResumen.conteo }}</span></p>
           <p class="text-sm text-slate-500">Ingresos Totales: <span class="font-medium text-slate-700">Q{{ (consultorResumen.ingresos || 0).toFixed(2) }}</span></p>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="bg-white rounded-xl shadow-xl border border-gray-200 mb-10 overflow-hidden">
+    <div class="md3-card mb-10 overflow-hidden">
       <div class="bg-slate-50 border-b border-gray-200 px-6 py-4">
         <h3 class="text-lg font-semibold text-teal-600">
           {{ modoEdicion ? 'Editar Tienda' : 'Nueva Tienda' }}
@@ -198,7 +198,7 @@
       </form>
     </div>
 
-    <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-4 mb-6">
+    <div class="md3-card p-4 mb-6">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="w-full md:w-auto flex flex-col sm:flex-row flex-wrap items-center gap-3">
                 <div class="relative flex-grow min-w-[180px] sm:min-w-[200px]">
@@ -254,7 +254,7 @@
         </button>
     </div>
 
-    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mb-10 relative">
+    <div class="md3-card overflow-hidden mb-10 relative">
       <div v-if="cargando && !mostrarModalMarcas && !mostrarConfirmacion && !mostrarDetalles && !mostrarModalCalendario" class="loading-overlay-light">
         <svg class="animate-spin h-8 w-8 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         <span class="ml-2 text-slate-600">Cargando datos...</span>
@@ -920,6 +920,15 @@ onMounted(async () => {
 /* General Light Theme Adjustments */
 .light-card {
   @apply bg-white shadow rounded-lg p-4 border border-gray-200;
+}
+
+/* Modern Material Design 3 style card */
+.md3-card {
+  @apply bg-white rounded-2xl shadow-sm border border-gray-200 p-4 transition-transform
+          duration-200 ease-in-out;
+}
+.md3-card:hover {
+  @apply shadow-md -translate-y-0.5;
 }
 .input-primary {
   @apply w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 placeholder-gray-400
