@@ -5,7 +5,7 @@ financiera
 
 ## Theme selection
 
-Use the theme selector in the application's top bar to switch between `light`, `dark` and the new `corporativo` appearance. The chosen option is saved and restored on your next visit.
+Use the theme selector in the application's top bar to switch between `light`, `dark` and the new `corporativo` appearance. If no preference is saved, the `corporativo` theme is now used by default.
 
 ## Environment variables
 

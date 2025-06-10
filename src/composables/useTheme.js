@@ -4,7 +4,7 @@ import { ref, onMounted, readonly } from 'vue'
 const THEME_STORAGE_KEY = 'app-theme'
 
 // Estado reactivo para el tema actual
-const currentTheme = ref('light')
+const currentTheme = ref('corporativo')
 
 export function useTheme() {
   const applyTheme = (themeName) => {
@@ -30,22 +30,17 @@ export function useTheme() {
     setThemePreference(currentTheme.value === 'dark' ? 'light' : 'dark')
   }
 
-  const initializeTheme = () => {
-    let initialTheme
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY)
+    const initializeTheme = () => {
+      let initialTheme
+      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY)
 
-    if (savedTheme) {
-      initialTheme = savedTheme
-    } else if (
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      initialTheme = 'dark'
-    } else {
-      initialTheme = 'light'
+      if (savedTheme) {
+        initialTheme = savedTheme
+      } else {
+        initialTheme = 'corporativo'
+      }
+      applyTheme(initialTheme)
     }
-    applyTheme(initialTheme)
-  }
 
   onMounted(() => {
     initializeTheme()

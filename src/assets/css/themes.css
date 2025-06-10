@@ -154,3 +154,9 @@
   --chart-legend-text: #335b83;
 }
 
+/* Aplicar las variables de tema a elementos base */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+

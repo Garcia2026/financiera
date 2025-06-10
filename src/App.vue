@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 font-sans text-slate-800">
+  <div class="min-h-screen font-sans" :style="{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }">
     <div v-if="isAuthenticated" class="sticky top-0 z-50 bg-gray-900/70 backdrop-blur-xl shadow-lg shadow-emerald-500/10 mb-6 animate-fade-in border-b border-emerald-500/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
