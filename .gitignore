@@ -3,3 +3,8 @@ node_modules/
 .DS_Store
 /dist
 .vscode/
+node_modules/
+dist/
+.env
+.DS_Store
+.vite/
