@@ -1,6 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 font-sans text-slate-800">
-    <div v-if="isAuthenticated" class="sticky top-0 z-50 bg-gray-900/70 backdrop-blur-xl shadow-lg shadow-emerald-500/10 mb-6 animate-fade-in border-b border-emerald-500/20">
+  <div
+    class="min-h-screen font-sans"
+    :style="{
+      background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-accent), var(--bg-primary))',
+      color: 'var(--text-primary)'
+    }"
+  >
+    <div
+      v-if="isAuthenticated"
+      class="sticky top-0 z-50 backdrop-blur-xl shadow-lg shadow-emerald-500/10 mb-6 animate-fade-in border-b border-emerald-500/20"
+      :style="{ backgroundColor: 'var(--bg-navbar)' }"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
           <div class="flex items-center transform transition-all duration-500 hover:scale-105">
@@ -12,7 +22,10 @@
             </h1>
           </div>
           
-          <div class="hidden md:flex items-center space-x-3 bg-gray-800/50 px-4 py-2 rounded-full border border-emerald-500/20 shadow-inner shadow-emerald-500/5">
+          <div
+            class="hidden md:flex items-center space-x-3 px-4 py-2 rounded-full border border-emerald-500/20 shadow-inner shadow-emerald-500/5"
+            :style="{ backgroundColor: 'var(--bg-secondary)', opacity: 0.5 }"
+          >
             <div class="digital-clock text-emerald-400 font-mono text-sm md:text-base tracking-wider">
               {{ formattedTime }}
             </div>
@@ -22,7 +35,8 @@
             <select
               v-model="selectedTheme"
               @change="setThemePreference(selectedTheme)"
-              class="ml-3 bg-gray-800/50 border border-emerald-500/20 text-emerald-300 text-sm rounded-md px-2 py-1 focus:outline-none"
+              class="ml-3 border border-emerald-500/20 text-sm rounded-md px-2 py-1 focus:outline-none"
+              :style="{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)' }"
             >
               <option value="light">Claro</option>
               <option value="dark">Oscuro</option>
@@ -88,9 +102,16 @@
       </div>
     </div>
     
-    <div v-if="isAuthenticated && menuOpen" class="md:hidden bg-gray-800/90 backdrop-blur-md border-b border-emerald-500/20 animate-fade-in-down">
+    <div
+      v-if="isAuthenticated && menuOpen"
+      class="md:hidden backdrop-blur-md border-b border-emerald-500/20 animate-fade-in-down"
+      :style="{ backgroundColor: 'var(--bg-navbar)' }"
+    >
       <div class="px-4 py-3 space-y-2">
-        <div class="flex justify-center items-center space-x-3 bg-gray-900/50 px-4 py-3 rounded-lg border border-emerald-500/20 mb-4 shadow-inner shadow-emerald-500/5">
+        <div
+          class="flex justify-center items-center space-x-3 px-4 py-3 rounded-lg border border-emerald-500/20 mb-4 shadow-inner shadow-emerald-500/5"
+          :style="{ backgroundColor: 'var(--bg-secondary)', opacity: 0.5 }"
+        >
           <div class="digital-clock text-emerald-400 font-mono text-base tracking-wider">
             {{ formattedTime }}
           </div>
@@ -134,7 +155,11 @@
       </router-view>
     </main>
     
-    <footer v-if="isAuthenticated" class="bg-gray-900/80 backdrop-blur-md border-t border-emerald-500/20 py-6 text-gray-400 text-sm animate-fade-in shadow-lg shadow-emerald-500/5">
+    <footer
+      v-if="isAuthenticated"
+      class="backdrop-blur-md border-t border-emerald-500/20 py-6 text-gray-400 text-sm animate-fade-in shadow-lg shadow-emerald-500/5"
+      :style="{ backgroundColor: 'var(--bg-navbar)' }"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:justify-between items-center space-y-3 md:space-y-0">
           <p>© {{ new Date().getFullYear() }} <span class="text-emerald-400">Soluciones Integrales GN</span>. Todos los derechos reservados.</p>
@@ -449,7 +474,13 @@ html {
 /* Fuente moderna y responsiva */
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  @apply text-slate-800 bg-slate-100;
+  color: var(--text-primary);
+  background: linear-gradient(
+    to bottom right,
+    var(--bg-secondary),
+    var(--bg-accent),
+    var(--bg-primary)
+  );
 }
 
 /* Media queries para optimizar la experiencia en dispositivos */
