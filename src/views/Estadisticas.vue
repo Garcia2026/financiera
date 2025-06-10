@@ -1,25 +1,25 @@
 <template>
-  <div class="estadisticas-page bg-gray-100 text-gray-800 min-h-screen">
+  <div class="estadisticas-page max-w-7xl mx-auto px-2 sm:px-4 md:px-6 text-slate-700">
     <div class="absolute top-0 left-0 w-full h-[300px] -z-10 overflow-hidden pointer-events-none">
       <div class="absolute top-[-50px] left-1/4 w-96 h-96 bg-blue-300 rounded-full filter blur-3xl opacity-20" aria-hidden="true"></div>
       <div class="absolute top-[50px] right-1/4 w-96 h-96 bg-purple-300 rounded-full filter blur-3xl opacity-20" aria-hidden="true"></div>
     </div>
 
-    <div class="relative z-20 px-4 py-8 max-w-7xl mx-auto">
+    <div class="relative z-20 px-4 py-8">
       <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-center mb-8 animate-[fade-in-down_0.6s_ease-out]">
         Panel de Estadísticas Globales
       </h2>
 
-      <div class="light-glass-container rounded-2xl shadow-lg p-5 mb-8 animate-[fade-in_0.6s_ease-out]">
+      <div class="md3-card mb-8 animate-[fade-in_0.6s_ease-out]">
         <div class="flex flex-col md:flex-row justify-start items-center gap-4">
           <h3 class="text-lg font-semibold text-gray-700 mr-4 flex-shrink-0">Filtrar Periodo:</h3>
-          <select v-model="selectedMonthGlobal" @change="aplicarFiltrosGlobales" class="input-light select-input-light w-full sm:w-48">
+          <select v-model="selectedMonthGlobal" @change="aplicarFiltrosGlobales" class="input-primary select-input w-full sm:w-48">
             <option value="" class="option-light text-gray-500">Todo el Año</option>
             <option v-for="month in months" :key="month.value" :value="month.value" class="option-light">
               {{ month.name }}
             </option>
           </select>
-          <select v-model="selectedYearGlobal" @change="aplicarFiltrosGlobales" class="input-light select-input-light w-full sm:w-32">
+          <select v-model="selectedYearGlobal" @change="aplicarFiltrosGlobales" class="input-primary select-input w-full sm:w-32">
             <option v-for="year in years" :key="year" :value="year" class="option-light">{{ year }}</option>
           </select>
           <button @click="resetFilters" class="btn-secondary-light tech-btn-light relative overflow-hidden flex-shrink-0 group md:ml-auto mt-3 md:mt-0 w-full md:w-auto">
@@ -146,7 +146,7 @@
             </div>
           </div>
 
-          <div v-if="kpiCumplimientoServicios.listaIncumplimientos.length > 0" class="mt-6 light-glass-container rounded-lg p-4 animate-[fade-in-up_0.6s_ease-out]" style="animation-delay: 0.2s;">
+          <div v-if="kpiCumplimientoServicios.listaIncumplimientos.length > 0" class="mt-6 md3-card p-4 animate-[fade-in-up_0.6s_ease-out]" style="animation-delay: 0.2s;">
             <h4 class="text-md font-semibold text-yellow-700 mb-3 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -635,21 +635,6 @@ watch([selectedMonthGlobal, selectedYearGlobal], () => { /* ... (sin cambios) ..
 /* Estilos generales del componente para tema claro */
 .estadisticas-page {
   @apply font-sans; /* Asegurar que se aplique la fuente base */
-}
-.light-glass-container {
-  @apply bg-white/80 backdrop-blur-md border border-gray-200 shadow-lg;
-}
-.input-light {
-  @apply w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150 text-sm shadow-sm disabled:bg-gray-100 disabled:opacity-70 disabled:cursor-not-allowed;
-}
-.select-input-light {
-  @apply appearance-none bg-no-repeat bg-right pr-10;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); /* Icono gris */
-  background-position: right 0.75rem center;
-  background-size: 1.25em 1.25em;
-}
-.input-light:focus.select-input-light {
-   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%233B82F6' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); /* Icono azul al enfocar */
 }
 .option-light {
   @apply bg-white text-gray-700;
