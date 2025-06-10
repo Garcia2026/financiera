@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 font-sans text-gray-100">
+  <div class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 font-sans text-slate-800">
     <div v-if="isAuthenticated" class="sticky top-0 z-50 bg-gray-900/70 backdrop-blur-xl shadow-lg shadow-emerald-500/10 mb-6 animate-fade-in border-b border-emerald-500/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
@@ -449,7 +449,7 @@ html {
 /* Fuente moderna y responsiva */
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  @apply text-gray-300 bg-gray-900; /* Clases de Tailwind para texto y fondo por defecto */
+  @apply text-slate-800 bg-slate-100;
 }
 
 /* Media queries para optimizar la experiencia en dispositivos */

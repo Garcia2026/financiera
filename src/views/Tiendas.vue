@@ -9,13 +9,29 @@
     <div v-if="tiendas.length > 0" class="mb-8">
       <h3 class="text-xl font-semibold text-teal-600 mb-4">Resumen General</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10">
-          <h4 class="font-bold text-lg text-slate-800 mb-1">Total de Tiendas Registradas</h4>
-          <p class="text-3xl font-bold text-slate-700">{{ resumenGeneral.totalTiendas }}</p>
+        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10 flex items-center gap-3">
+          <div class="p-2 bg-teal-100 text-teal-600 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l1.664 12.42A2 2 0 006.653 21h10.694a2 2 0 001.989-1.58L21 7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3l-4 4-4-4" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg text-slate-800 mb-1">Total de Tiendas Registradas</h4>
+            <p class="text-3xl font-bold text-slate-700">{{ resumenGeneral.totalTiendas }}</p>
+          </div>
         </div>
-        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10">
-          <h4 class="font-bold text-lg text-slate-800 mb-1">Costo Total General</h4>
-          <p class="text-3xl font-bold text-slate-700">Q{{ (resumenGeneral.costoTotalGeneral || 0).toFixed(2) }}</p>
+        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10 flex items-center gap-3">
+          <div class="p-2 bg-teal-100 text-teal-600 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-3.866 0-7 1.343-7 3v4a2 2 0 002 2h10a2 2 0 002-2v-4c0-1.657-3.134-3-7-3z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8V6m0 0V4m0 2a2 2 0 114 0" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg text-slate-800 mb-1">Costo Total General</h4>
+            <p class="text-3xl font-bold text-slate-700">Q{{ (resumenGeneral.costoTotalGeneral || 0).toFixed(2) }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -24,11 +40,19 @@
       <h3 class="text-xl font-semibold text-emerald-600 mb-4">Resumen por Marca</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div v-for="(marcaResumen, index) in resumenPorMarca" :key="index"
-             class="md3-card border-l-4 transition-all duration-300"
+             class="md3-card border-l-4 transition-all duration-300 flex items-center gap-3"
              :class="[`border-${getBrandColor(marcaResumen.nombre)}-500`, `hover:shadow-${getBrandColor(marcaResumen.nombre)}-500/10`]">
-          <h4 class="font-bold text-lg text-slate-800 mb-1">{{ marcaResumen.nombre }}</h4>
-          <p class="text-sm text-slate-500">Tiendas: <span class="font-medium text-slate-700">{{ marcaResumen.conteo }}</span></p>
-          <p class="text-sm text-slate-500">Ingresos Totales: <span class="font-medium text-slate-700">Q{{ (marcaResumen.ingresos || 0).toFixed(2) }}</span></p>
+          <div class="p-2 rounded-full"
+               :class="[`bg-${getBrandColor(marcaResumen.nombre)}-100`, `text-${getBrandColor(marcaResumen.nombre)}-600`]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22V12m0 0L7 7m5 5l5-5M5 15v2a2 2 0 002 2h10a2 2 0 002-2v-2" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg text-slate-800 mb-1">{{ marcaResumen.nombre }}</h4>
+            <p class="text-sm text-slate-500">Tiendas: <span class="font-medium text-slate-700">{{ marcaResumen.conteo }}</span></p>
+            <p class="text-sm text-slate-500">Ingresos Totales: <span class="font-medium text-slate-700">Q{{ (marcaResumen.ingresos || 0).toFixed(2) }}</span></p>
+          </div>
         </div>
       </div>
     </div>
@@ -37,10 +61,19 @@
       <h3 class="text-xl font-semibold text-teal-600 mb-4">Resumen por Consultor</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div v-for="(consultorResumen, index) in resumenPorConsultor" :key="index"
-             class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10">
-          <h4 class="font-bold text-lg text-slate-800 mb-1">{{ consultorResumen.nombre }}</h4>
-          <p class="text-sm text-slate-500">Tiendas Asignadas: <span class="font-medium text-slate-700">{{ consultorResumen.conteo }}</span></p>
-          <p class="text-sm text-slate-500">Ingresos Totales: <span class="font-medium text-slate-700">Q{{ (consultorResumen.ingresos || 0).toFixed(2) }}</span></p>
+             class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10 flex items-center gap-3">
+          <div class="p-2 bg-teal-100 text-teal-600 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20H4v-2a3 3 0 015.356-1.857"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a4 4 0 10-8 0 4 4 0 008 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg text-slate-800 mb-1">{{ consultorResumen.nombre }}</h4>
+            <p class="text-sm text-slate-500">Tiendas Asignadas: <span class="font-medium text-slate-700">{{ consultorResumen.conteo }}</span></p>
+            <p class="text-sm text-slate-500">Ingresos Totales: <span class="font-medium text-slate-700">Q{{ (consultorResumen.ingresos || 0).toFixed(2) }}</span></p>
+          </div>
         </div>
       </div>
     </div>
@@ -159,6 +192,11 @@
           </div>
 
           <div class="md:col-span-3 mt-6 pt-4 border-t border-gray-200">
+              <div class="flex items-center mb-4">
+                  <input id="dup-next" v-model="duplicarProximoMes" type="checkbox"
+                         class="h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500" />
+                  <label for="dup-next" class="ml-2 text-sm text-slate-700">Duplicar para el próximo mes</label>
+              </div>
               <div class="flex flex-col sm:flex-row gap-3">
                   <button type="submit" class="btn-primary flex-1" :disabled="!formularioValido || cargando">
                       <span class="flex items-center justify-center">
@@ -508,6 +546,7 @@ const cargando = ref(false)
 const mostrarModalCalendario = ref(false)
 const diasDelMesCalendario = ref([])
 const nombreMesCalendario = ref('')
+const duplicarProximoMes = ref(false)
 
 const categoriasDisponibles = ref([
   'Mant. Preventivo',
@@ -639,6 +678,18 @@ const validarSegundaVisita = () => { if (!nueva.value.fechaSegundaVisita) return
 const formatearFecha = (fechaInput, incluirAno = false) => { if (!fechaInput) return ''; try { let fecha; if (fechaInput instanceof Timestamp) { fecha = fechaInput.toDate() } else if (fechaInput instanceof Date && !isNaN(fechaInput.getTime())) { fecha = fechaInput; } else if (typeof fechaInput === 'string' && fechaInput.includes('-')) { const parts = fechaInput.split('-'); if (parts.length === 3) { fecha = new Date(Date.UTC(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))); } else { return 'Fecha inválida'; } } else { return 'Fecha inválida'; } if (isNaN(fecha.getTime())) { return 'Fecha inválida'; } const opciones = incluirAno ? { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' } : { day: '2-digit', month: '2-digit', timeZone: 'UTC' }; return fecha.toLocaleDateString('es-GT', opciones) } catch (e) { return 'Fecha inválida'; } }
 const formatearMes = (mesStr) => { if (!mesStr || !mesStr.includes('-')) return ''; try { const [ano, mes] = mesStr.split('-'); const fecha = new Date(Date.UTC(Number(ano), Number(mes) - 1, 1)); if (isNaN(fecha.getTime())) { return mesStr; } let mesFormateado = fecha.toLocaleDateString('es-GT', { month: 'long', year: 'numeric', timeZone: 'UTC' }); return mesFormateado.charAt(0).toUpperCase() + mesFormateado.slice(1); } catch (e) { return mesStr; } }
 
+const obtenerMesSiguiente = (mesStr) => {
+  if (!mesStr || !mesStr.includes('-')) return mesStr
+  try {
+    let [y, m] = mesStr.split('-').map(Number)
+    m += 1
+    if (m > 12) { m = 1; y += 1 }
+    return `${y}-${String(m).padStart(2, '0')}`
+  } catch (e) {
+    return mesStr
+  }
+}
+
 // Firebase dependent functions
 const cargarTiendas = async () => {
     if (!db) { console.warn("DB no inicializado, saltando cargarTiendas"); return; }
@@ -692,9 +743,17 @@ const guardarTienda = async () => {
             fechaCreacion: serverTimestamp(), tiendaId: docRef.id
         };
         await addDoc(collection(db, 'mantenimientos'), mantenimiento);
+        if (duplicarProximoMes.value) {
+            const siguienteMes = obtenerMesSiguiente(tiendaData.mesServicio);
+            const copiaTienda = { ...tiendaData, mesServicio: siguienteMes, fechaCreacion: serverTimestamp() };
+            const dupRef = await addDoc(collection(db, 'tiendas'), copiaTienda);
+            const copiaMantenimiento = { ...mantenimiento, fecha: copiaTienda.mesServicio + '-01', tiendaId: dupRef.id };
+            await addDoc(collection(db, 'mantenimientos'), copiaMantenimiento);
+        }
         await cargarTiendas();
         nueva.value = { ...tiendaVacia };
         formEnviado.value = false;
+        duplicarProximoMes.value = false;
     } catch (error) { console.error("Error guardando tienda:", error); }
     finally { cargando.value = false; }
 }
@@ -928,7 +987,7 @@ onMounted(async () => {
           duration-200 ease-in-out;
 }
 .md3-card:hover {
-  @apply shadow-md -translate-y-0.5;
+  @apply shadow-md -translate-y-1;
 }
 .input-primary {
   @apply w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 placeholder-gray-400
@@ -1106,8 +1165,8 @@ onMounted(async () => {
 .border-amber-500 {} .border-red-500 {} .border-green-500 {} .border-pink-500 {} .border-gray-500 {} .border-blue-500 {} .border-black {} .border-indigo-500 {} .border-purple-500 {} .border-cyan-500 {} .border-emerald-500 {} .border-sky-500 {} .border-teal-500 {} .border-yellow-500 {}
 .hover\:shadow-amber-500\/10 {} .hover\:shadow-red-500\/10 {} .hover\:shadow-green-500\/10 {} .hover\:shadow-pink-500\/10 {} .hover\:shadow-gray-500\/10 {} .hover\:shadow-blue-500\/10 {} .hover\:shadow-black\/10 {} .hover\:shadow-indigo-500\/10 {} .hover\:shadow-purple-500\/10 {} .hover\:shadow-cyan-500\/10 {} .hover\:shadow-emerald-500\/10 {} .hover\:shadow-sky-500\/10 {} .hover\:shadow-teal-500\/10 {} .hover\:shadow-yellow-500\/10 {}
 
-.text-yellow-700 {} .text-sky-700 {} .text-green-700 {} .text-emerald-700 {} .text-emerald-600 {} .text-slate-600 {} .text-red-700 {} .text-teal-600 {} .text-teal-700 {} .text-purple-600 {}
-.bg-yellow-100 {} .bg-sky-100 {} .bg-green-100 {} .bg-emerald-100 {} .bg-slate-100 {} .bg-red-100 {} .bg-teal-100 {}
+.text-yellow-700 {} .text-sky-700 {} .text-green-700 {} .text-emerald-700 {} .text-emerald-600 {} .text-slate-600 {} .text-red-700 {} .text-red-600 {} .text-teal-600 {} .text-teal-700 {} .text-yellow-600 {} .text-pink-600 {} .text-gray-600 {} .text-purple-600 {}
+.bg-yellow-100 {} .bg-sky-100 {} .bg-green-100 {} .bg-emerald-100 {} .bg-slate-100 {} .bg-red-100 {} .bg-teal-100 {} .bg-pink-100 {} .bg-gray-100 {}
 
 .bg-emerald-500 {} .bg-red-500 {} .bg-teal-500 {} .bg-teal-400 {} .bg-emerald-400 {}
 .hover\:bg-teal-500 {} .hover\:bg-emerald-500 {} .hover\:bg-red-500 {}
