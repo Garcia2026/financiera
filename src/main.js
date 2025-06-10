@@ -2,7 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './assets/tailwind.css';
-import './assets/css/themes.css'; // <-- AÑADE ESTA LÍNEA (ajusta la ruta si lo guardaste en otro lugar)
+import './assets/css/themes.css';
+import './assets/css/transitions.css';
 
 // 1. Importa el plugin y su CSS
 import Toast from 'vue-toastification';

@@ -118,11 +118,9 @@
     </div>
     
     <main class="pt-4 pb-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <router-view v-slot="{ Component }">
-        <transition name="page-transition" mode="out-in">
-          <component :is="Component" />
-        </transition>
-      </router-view>
+      <transition name="fade" mode="out-in">
+        <router-view />
+      </transition>
     </main>
     
     <footer v-if="isAuthenticated" class="bg-gray-900/80 backdrop-blur-md border-t border-emerald-500/20 py-6 text-gray-400 text-sm animate-fade-in shadow-lg shadow-emerald-500/5">
@@ -298,22 +296,6 @@ onUnmounted(() => {
 </script>
 
 <style>
-/* Transiciones de página mejoradas */
-.page-transition-enter-active,
-.page-transition-leave-active {
-  transition: all 0.3s ease-out;
-}
-
-.page-transition-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.page-transition-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
 /* Animaciones para elementos */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
