@@ -33,8 +33,11 @@
                       </span>
                       <span v-else class="flex items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                          Exportar PDF
+                      Exportar PDF
                       </span>
+                  </button>
+                  <button @click="toggleChartType" class="btn-secondary flex-shrink-0">
+                      <span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6v12m4-8v8m4-4v4m4-12v12M3 20h18" /></svg>{{ chartViewType === 'line' ? 'Vista Barras' : 'Vista Línea' }}</span>
                   </button>
                   <button @click="handleCapitalAction('add')" class="btn-secondary flex-shrink-0">
                       <span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>Capital</span>
@@ -398,6 +401,7 @@ const exportingPDF = ref(false);
 
 const selectedMonth = ref(String(new Date().getMonth() + 1).padStart(2, '0'));
 const selectedYear = ref(new Date().getFullYear());
+const chartViewType = ref(selectedMonth.value === '' ? 'line' : 'bar');
 
 // --- Modales y Formularios ---
 const showAddExpenseModal = ref(false);
@@ -548,7 +552,7 @@ const todosLosPrestamosRecibidos = computed(() => {
 });
 
 // --- Lógica de Gráficos ---
-const mainChartType = computed(() => selectedMonth.value === '' ? 'line' : 'bar');
+const mainChartType = computed(() => chartViewType.value);
 const mainChartComponent = shallowRef(Bar);
 const mainChartTitle = computed(() => selectedMonth.value === '' ? `Evolución Anual ${selectedYear.value}` : `Resumen ${months.find(m => m.value === selectedMonth.value)?.name || ''} ${selectedYear.value}`);
 
@@ -848,6 +852,10 @@ const exportToPDF = () => {
     });
 };
 
+const toggleChartType = () => {
+    chartViewType.value = chartViewType.value === 'line' ? 'bar' : 'line';
+};
+
 // --- Carga de Datos ---
 const cargarDatos = async () => {
     cargando.value = true;
@@ -887,6 +895,10 @@ onMounted(() => {
     resetForm('capital');
     resetForm('prestamo');
     resetForm('pagoPrestamo');
+});
+
+watch(selectedMonth, (val) => {
+    chartViewType.value = val === '' ? 'line' : 'bar';
 });
 
 watch(mainChartType, (newType) => {
