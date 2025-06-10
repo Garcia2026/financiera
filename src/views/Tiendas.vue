@@ -155,6 +155,10 @@
                   <option value="Pagado" class="option-light">Pagado</option>
                 </select>
               </div>
+              <div class="md:col-span-4 flex items-center pt-2">
+                <input type="checkbox" v-model="nueva.duplicarMesSiguiente" id="dupMes" class="h-4 w-4 text-teal-600 border-gray-300 rounded" />
+                <label for="dupMes" class="ml-2 text-sm text-slate-700">Agregar automáticamente el próximo mes</label>
+              </div>
             </div>
           </div>
 
@@ -535,7 +539,9 @@ const tiendaVacia = {
     fechaSegundaVisita: '', estadoSegundaVisita: 'Programada', costo: null,
     tipoPago: 'Contado',
     diasCredito: 0,
-    estadoProceso: 'Pendiente', fechaCreacion: null
+    estadoProceso: 'Pendiente',
+    fechaCreacion: null,
+    duplicarMesSiguiente: false
 }
 const nueva = ref({ ...tiendaVacia })
 
@@ -677,6 +683,8 @@ const guardarTienda = async () => {
     try {
         const tiendaData = { ...nueva.value, fechaCreacion: serverTimestamp() };
         delete tiendaData.id;
+        const duplicar = tiendaData.duplicarMesSiguiente;
+        delete tiendaData.duplicarMesSiguiente;
         Object.keys(tiendaData).forEach(key => { if (tiendaData[key] === '') tiendaData[key] = null; });
         if (!tiendaData.fechaPrimeraVisita) tiendaData.estadoPrimeraVisita = null;
         if (!tiendaData.fechaSegundaVisita) tiendaData.estadoSegundaVisita = null;
@@ -692,6 +700,35 @@ const guardarTienda = async () => {
             fechaCreacion: serverTimestamp(), tiendaId: docRef.id
         };
         await addDoc(collection(db, 'mantenimientos'), mantenimiento);
+
+        if (duplicar) {
+            const obtenerMesSiguiente = (mesStr) => {
+                const [y, m] = mesStr.split('-').map(Number);
+                let nextM = m + 1, nextY = y;
+                if (nextM > 12) { nextM = 1; nextY += 1; }
+                return `${nextY}-${String(nextM).padStart(2, '0')}`;
+            };
+            const siguienteMes = obtenerMesSiguiente(tiendaData.mesServicio);
+            const copia = {
+                ...tiendaData,
+                mesServicio: siguienteMes,
+                fechaCreacion: serverTimestamp(),
+                fechaPrimeraVisita: null,
+                fechaSegundaVisita: null,
+                estadoPrimeraVisita: 'Programada',
+                estadoSegundaVisita: 'Programada',
+                duplicarMesSiguiente: false
+            };
+            const docRefNext = await addDoc(collection(db, 'tiendas'), copia);
+            const mantenimientoNext = {
+                tienda: copia.nombre, tecnico: copia.tecnico, consultor: copia.consultor,
+                fecha: copia.mesServicio + "-01", numVisitas: copia.numVisitas,
+                fechaPrimeraVisita: copia.fechaPrimeraVisita, estadoPrimeraVisita: copia.estadoPrimeraVisita,
+                fechaSegundaVisita: copia.fechaSegundaVisita, estadoSegundaVisita: copia.estadoSegundaVisita,
+                fechaCreacion: serverTimestamp(), tiendaId: docRefNext.id
+            };
+            await addDoc(collection(db, 'mantenimientos'), mantenimientoNext);
+        }
         await cargarTiendas();
         nueva.value = { ...tiendaVacia };
         formEnviado.value = false;
@@ -775,7 +812,8 @@ const editarTienda = (tienda) => {
         estadoSegundaVisita: tienda.estadoSegundaVisita || tiendaVacia.estadoSegundaVisita,
         costo: tienda.costo ?? tiendaVacia.costo, tipoPago: tienda.tipoPago || tiendaVacia.tipoPago,
         diasCredito: tienda.diasCredito ?? tiendaVacia.diasCredito,
-        estadoProceso: tienda.estadoProceso || tiendaVacia.estadoProceso, fechaCreacion: tienda.fechaCreacion
+        estadoProceso: tienda.estadoProceso || tiendaVacia.estadoProceso, fechaCreacion: tienda.fechaCreacion,
+        duplicarMesSiguiente: tienda.duplicarMesSiguiente ?? tiendaVacia.duplicarMesSiguiente
     };
     modoEdicion.value = true; mostrarDetalles.value = false; formEnviado.value = false;
     window.scrollTo({ top: 0, behavior: 'smooth' });

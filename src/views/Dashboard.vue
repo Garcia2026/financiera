@@ -237,6 +237,18 @@
           </div>
         </div>
 
+        <div class="chart-container animate-[fade-in-up_0.6s_ease-out]" style="animation-delay: 0.3s;">
+          <h3 class="chart-title flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3v18h18"/></svg>
+            Tiendas por Marca ({{ nombrePeriodo }})
+          </h3>
+          <div class="chart-wrapper">
+            <div class="h-72 md:h-96 w-full">
+              <canvas ref="tiendasMarcaChart"></canvas>
+            </div>
+          </div>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <section class="bg-gray-800/40 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-gray-700/50 transform transition-all duration-500 hover:bg-gray-800/60 hover:shadow-emerald-500/5 animate-[fade-in-up_0.6s_ease-out]">
             <header class="flex justify-between items-center mb-6">
@@ -401,6 +413,9 @@ export default {
       },
       vistaCashFlow: 'mensual', // 'diario', 'semanal', 'mensual'
       cashFlowChartInstance: null,
+
+      tiendasMarcaData: { labels: [], counts: [] },
+      tiendasMarcaChartInstance: null,
 
       tiendasRecientes: [], // Array de objetos tienda
       cobrosProximos: [], // Array de objetos cobro
@@ -586,6 +601,14 @@ export default {
         const tiendasDelPeriodo = snapshotTiendasPeriodo.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         this.totalServiciosPeriodo = tiendasDelPeriodo.length;
         console.log("Dashboard: Tiendas en período actual (" + mesInicioStr + " a " + mesFinStr + "):", this.totalServiciosPeriodo, tiendasDelPeriodo);
+
+        const conteoMarca = {};
+        tiendasDelPeriodo.forEach(t => {
+          const m = t.marca || 'Sin Marca';
+          conteoMarca[m] = (conteoMarca[m] || 0) + 1;
+        });
+        this.tiendasMarcaData = { labels: Object.keys(conteoMarca), counts: Object.values(conteoMarca) };
+        this.initOrUpdateTiendasMarcaChart();
 
         const mesInicioAntStr = `${fechaInicioAnt.getFullYear()}-${String(fechaInicioAnt.getMonth() + 1).padStart(2, '0')}`;
         const mesFinAntStr = `${fechaFinAnt.getFullYear()}-${String(fechaFinAnt.getMonth() + 1).padStart(2, '0')}`;
@@ -983,6 +1006,49 @@ export default {
       });
     },
 
+    initOrUpdateTiendasMarcaChart() {
+      if (this.tiendasMarcaChartInstance) {
+        this.tiendasMarcaChartInstance.destroy();
+        this.tiendasMarcaChartInstance = null;
+      }
+      if (!this.$refs.tiendasMarcaChart) {
+        console.warn('Chart Tiendas Marca: canvas no encontrado');
+        return;
+      }
+      const ctx = this.$refs.tiendasMarcaChart.getContext('2d');
+      if (!this.tiendasMarcaData.labels.length) {
+        ctx.clearRect(0,0,this.$refs.tiendasMarcaChart.width,this.$refs.tiendasMarcaChart.height);
+        ctx.textAlign='center';
+        ctx.fillStyle='#9CA3AF';
+        ctx.font='16px Inter';
+        ctx.fillText('Sin datos para este periodo', this.$refs.tiendasMarcaChart.width/2, this.$refs.tiendasMarcaChart.height/2);
+        return;
+      }
+      this.tiendasMarcaChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: this.tiendasMarcaData.labels,
+          datasets: [{
+            label: 'Tiendas',
+            data: this.tiendasMarcaData.counts,
+            backgroundColor: 'rgba(16,185,129,0.7)',
+            borderColor: '#10B981',
+            borderWidth: 1,
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#D1D5DB' } } },
+          scales: {
+            x: { ticks: { color: '#9CA3AF' }, grid: { color: 'rgba(75,85,99,0.3)' } },
+            y: { ticks: { color: '#9CA3AF' }, beginAtZero: true, grid: { color: 'rgba(75,85,99,0.3)' } }
+          }
+        }
+      });
+    },
+
     cambiarVistaCashFlow(vista) {
       this.vistaCashFlow = vista;
       // No es necesario llamar a actualizarDatos() completo si los datos base del período no cambian.
@@ -1060,6 +1126,10 @@ export default {
     if (this.cashFlowChartInstance) {
       this.cashFlowChartInstance.destroy();
       this.cashFlowChartInstance = null;
+    }
+    if (this.tiendasMarcaChartInstance) {
+      this.tiendasMarcaChartInstance.destroy();
+      this.tiendasMarcaChartInstance = null;
     }
   },
 };
