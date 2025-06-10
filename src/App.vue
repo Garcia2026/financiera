@@ -27,6 +27,7 @@
               <option value="light">Claro</option>
               <option value="dark">Oscuro</option>
               <option value="corporativo">Corporativo</option>
+              <option value="material">Material 3</option>
             </select>
           </div>
           
@@ -448,7 +449,7 @@ html {
 
 /* Fuente moderna y responsiva */
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Ubuntu', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: var(--text-primary);
   background-color: var(--bg-primary);
 }

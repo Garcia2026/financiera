@@ -8,11 +8,13 @@ const currentTheme = ref('light')
 
 export function useTheme() {
   const applyTheme = (themeName) => {
-    document.documentElement.classList.remove('theme-dark', 'theme-corporativo')
+    document.documentElement.classList.remove('theme-dark', 'theme-corporativo', 'theme-material')
     if (themeName === 'dark') {
       document.documentElement.classList.add('theme-dark')
     } else if (themeName === 'corporativo') {
       document.documentElement.classList.add('theme-corporativo')
+    } else if (themeName === 'material') {
+      document.documentElement.classList.add('theme-material')
     }
     currentTheme.value = themeName
   }

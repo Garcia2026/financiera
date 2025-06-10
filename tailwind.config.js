@@ -9,8 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        // Añade 'Inter' al inicio de la pila de fuentes sans-serif
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        // Use Ubuntu as the primary sans serif font followed by Inter
+        sans: ['Ubuntu', 'Inter', ...defaultTheme.fontFamily.sans],
       },
       // ... (puedes tener otras extensiones aquí) ...
     },

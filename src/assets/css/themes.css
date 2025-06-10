@@ -154,3 +154,54 @@
   --chart-legend-text: #335b83;
 }
 
+/* ------------------------------ */
+/* -- TEMA MATERIAL DESIGN 3 --- */
+/* ------------------------------ */
+.theme-material {
+  --bg-primary: #FFFBFE;
+  --bg-secondary: #F4EFF4;
+  --bg-accent: #EADDFF;
+  --bg-navbar: rgba(103, 80, 164, 0.85);
+  --bg-modal: rgba(255, 251, 254, 0.95);
+
+  --text-primary: #1C1B1F;
+  --text-secondary: #49454F;
+  --text-accent: #6750A4;
+  --text-on-accent-bg: #FFFFFF;
+
+  --border-primary: #CAC4D0;
+  --border-secondary: #E8DEF8;
+  --border-accent: #6750A4;
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-navbar: rgba(103, 80, 164, 0.2);
+
+  --brand-emerald: #6750A4;
+  --brand-emerald-text: #21005D;
+  --brand-red: #B3261E;
+  --brand-red-text: #410E0B;
+  --brand-blue: #1D65D8;
+  --brand-blue-text: #0A2F6B;
+  --brand-purple: #8254C5;
+  --brand-purple-text: #320F6F;
+  --brand-pink: #C93570;
+  --brand-pink-text: #520634;
+  --brand-yellow: #E4C000;
+  --brand-yellow-text: #4E4000;
+
+  --input-bg: #FFFBFE;
+  --input-border: #CAC4D0;
+  --input-text: #1C1B1F;
+  --input-focus-ring: #6750A4;
+
+  --scrollbar-thumb: #CAC4D0;
+  --scrollbar-track: #E8DEF8;
+
+  --chart-grid-color: rgba(0, 0, 0, 0.1);
+  --chart-tick-color: #49454F;
+  --chart-tooltip-bg: rgba(255, 255, 255, 0.95);
+  --chart-tooltip-text: #1C1B1F;
+  --chart-legend-text: #49454F;
+}
+
+
