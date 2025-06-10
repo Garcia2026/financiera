@@ -187,7 +187,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { collection, getDocs, doc, updateDoc, query, where, Timestamp } from 'firebase/firestore'
-import { db } from '../firebase.js' // Asegúrate que la ruta sea correcta
+import { db } from '../firebase/firebase' // Asegúrate que la ruta sea correcta
 
 const todasLasTiendas = ref([])
 const listaDeCobros = ref([])

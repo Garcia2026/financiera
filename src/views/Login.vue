@@ -61,7 +61,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase.js';
+import { auth } from '../firebase/firebase';
 
 // Router
 const router = useRouter();

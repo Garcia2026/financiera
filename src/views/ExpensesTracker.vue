@@ -386,7 +386,7 @@ import html2pdf from 'html2pdf.js';
 // ** IMPORTANTE: CONECTA TU FIREBASE AQUÍ **
 // 1. Asegúrate de que la ruta a tu archivo de configuración de Firebase sea correcta.
 // 2. Ejecuta `npm install firebase` en tu terminal si aún no lo has hecho.
-import { db } from '../firebase.js'; // <-- VERIFICA ESTA RUTA
+import { db } from '../firebase/firebase'; // <-- VERIFICA ESTA RUTA
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, Timestamp, query, orderBy, serverTimestamp } from 'firebase/firestore';
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Filler);
