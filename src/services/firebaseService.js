@@ -12,7 +12,7 @@ import {
     Timestamp, 
     serverTimestamp
   } from 'firebase/firestore'
-  import { db } from '../firebase/firebase'
+  import { db } from '../firebase.js'
   
   /**
    * Obtiene todos los documentos de una colección
