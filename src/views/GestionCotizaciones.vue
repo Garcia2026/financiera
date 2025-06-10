@@ -435,7 +435,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp, Timestamp, query, orderBy, where, getCountFromServer } from 'firebase/firestore';
-import { db } from '../firebase/firebase'; // Asegúrate que la ruta a tu config de Firebase sea correcta
+import { db } from '../firebase.js'; // Asegúrate que la ruta a tu config de Firebase sea correcta
 
 // Estados reactivos
 const cotizaciones = ref([]);

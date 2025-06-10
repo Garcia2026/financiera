@@ -1,5 +1,5 @@
 import Chart from 'chart.js/auto'
-import { db } from '../firebase/firebase'
+import { db } from '../firebase.js'
 import { collection, getDocs, query, where, orderBy, limit, Timestamp } from 'firebase/firestore'
 
 export function useDashboardOptions() {
