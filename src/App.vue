@@ -19,6 +19,15 @@
             <div class="text-xs text-emerald-500/70">
               {{ formattedDate }}
             </div>
+            <select
+              v-model="selectedTheme"
+              @change="setThemePreference(selectedTheme)"
+              class="ml-3 bg-gray-800/50 border border-emerald-500/20 text-emerald-300 text-sm rounded-md px-2 py-1 focus:outline-none"
+            >
+              <option value="light">Claro</option>
+              <option value="dark">Oscuro</option>
+              <option value="corporativo">Corporativo</option>
+            </select>
           </div>
           
           <button @click="menuOpen = !menuOpen" class="md:hidden text-emerald-400 hover:text-emerald-300 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-800/50">
@@ -153,6 +162,7 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { useTheme } from './composables/useTheme'
 
 // Estado de la aplicación
 const isAuthenticated = ref(false)
@@ -165,6 +175,11 @@ const router = useRouter()
 const route = useRoute()
 let unsubscribe
 let clockInterval
+const { currentTheme, setThemePreference } = useTheme()
+const selectedTheme = ref(currentTheme.value)
+watch(currentTheme, (v) => {
+  selectedTheme.value = v
+})
 
 // Cierra el menú desplegable cuando cambia la ruta
 watch(() => route.path, () => {
