@@ -362,6 +362,7 @@
 
 <script>
 import Chart from 'chart.js/auto';
+import gsap from 'gsap';
 import { db } from '../firebase/firebase'; // Asegúrate que la ruta a tu config de Firebase sea correcta
 import { collection, getDocs, query, where, orderBy, limit, Timestamp } from 'firebase/firestore';
 
@@ -1054,6 +1055,26 @@ export default {
     this.updateDateTime();
     this.timer = setInterval(this.updateDateTime, 1000);
     this.actualizarDatos();
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      this.$nextTick(() => {
+        gsap.from('.summary-card', {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+          ease: 'power2.out',
+          stagger: 0.1,
+        });
+        gsap.from('.chart-container', {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+          ease: 'power2.out',
+          delay: 0.3,
+        });
+      });
+    }
   },
   beforeUnmount() {
     clearInterval(this.timer);

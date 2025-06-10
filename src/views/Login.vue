@@ -62,6 +62,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
+import gsap from 'gsap';
 
 // Router
 const router = useRouter();
@@ -81,6 +82,7 @@ const mousePosition = ref({
 });
 let ctx = null;
 let animationId = null;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Login handler
 const handleLogin = async () => {
@@ -121,7 +123,12 @@ onMounted(() => {
   positionCornerGlows();
   setupInputEffects();
   setTimeout(animateCornerGlows, 2000);
-  
+
+  if (!prefersReducedMotion) {
+    gsap.from('.login-container', { opacity: 0, y: -40, duration: 1, ease: 'power2.out' });
+    gsap.from('#particleCanvas', { opacity: 0, duration: 1, ease: 'power2.out' });
+  }
+
   // Event listeners
   window.addEventListener('resize', handleResize);
   window.addEventListener('mousemove', handleMouseMove);
