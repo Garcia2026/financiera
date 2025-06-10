@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './assets/tailwind.css'
 import './assets/css/themes.css'
+import './assets/css/light-components.css'
 import { createPinia } from 'pinia'
 import { useAppStore } from './stores'
 

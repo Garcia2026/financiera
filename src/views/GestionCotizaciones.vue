@@ -1,7 +1,7 @@
 <template>
-  <div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 text-gray-200">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 text-slate-700">
 
-    <div class="bg-gradient-to-r from-gray-900/80 via-gray-800/80 to-gray-900/80 backdrop-blur-sm border border-emerald-500/20 rounded-lg shadow-lg shadow-emerald-500/10 mb-8 py-4 px-6 transform transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/20">
+    <div class="md3-card mb-8 py-4 px-6">
       <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-300 glow-emerald mb-2 text-center">Gestión de Cotizaciones</h2>
       <p class="text-emerald-100/70 text-center text-sm md:text-base">Crea, administra y da seguimiento a tus propuestas comerciales</p>
     </div>
@@ -18,31 +18,31 @@
       </button>
     </div>
 
-    <div class="glass-container-emerald rounded-xl shadow-lg border border-gray-700/30 p-4 mb-6">
+    <div class="md3-card mb-6 p-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label for="filtroCliente" class="label-form text-xs">Buscar por Cliente:</label>
-          <input type="text" id="filtroCliente" v-model="filtros.cliente" placeholder="Nombre del cliente..." class="input-primary-emerald input-sm">
+          <input type="text" id="filtroCliente" v-model="filtros.cliente" placeholder="Nombre del cliente..." class="input-primary input-sm">
         </div>
         <div>
           <label for="filtroEstado" class="label-form text-xs">Filtrar por Estado:</label>
-          <select id="filtroEstado" v-model="filtros.estado" class="input-primary-emerald select-input input-sm">
-            <option value="" class="option-dark">Todos los Estados</option>
-            <option value="Borrador" class="option-dark">Borrador</option>
-            <option value="Enviada" class="option-dark">Enviada</option>
-            <option value="Aceptada" class="option-dark">Aceptada</option>
-            <option value="Rechazada" class="option-dark">Rechazada</option>
-            <option value="Facturada" class="option-dark">Facturada</option>
+          <select id="filtroEstado" v-model="filtros.estado" class="input-primary select-input input-sm">
+            <option value="" class="option-light">Todos los Estados</option>
+            <option value="Borrador" class="option-light">Borrador</option>
+            <option value="Enviada" class="option-light">Enviada</option>
+            <option value="Aceptada" class="option-light">Aceptada</option>
+            <option value="Rechazada" class="option-light">Rechazada</option>
+            <option value="Facturada" class="option-light">Facturada</option>
           </select>
         </div>
         <div>
           <label for="filtroFecha" class="label-form text-xs">Filtrar por Mes de Creación:</label>
-            <input type="month" id="filtroFecha" v-model="filtros.mesCreacion" class="input-primary-emerald month-input input-sm">
+            <input type="month" id="filtroFecha" v-model="filtros.mesCreacion" class="input-primary month-input input-sm">
         </div>
       </div>
     </div>
 
-    <div class="glass-container-emerald rounded-xl shadow-lg border border-gray-700/30 overflow-hidden mb-10 relative">
+    <div class="md3-card overflow-hidden mb-10 relative">
       <div v-if="cargandoCotizaciones" class="loading-overlay">
         <svg class="animate-spin h-8 w-8 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         <span class="ml-2 text-gray-200">Cargando Cotizaciones...</span>
@@ -117,32 +117,32 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="cot-empresaNombre" class="label-form">Nombre Empresa</label>
-                        <input type="text" id="cot-empresaNombre" v-model="nuevaCotizacion.empresaNombre" class="input-primary-emerald input-sm" placeholder="Nombre de tu empresa">
+                        <input type="text" id="cot-empresaNombre" v-model="nuevaCotizacion.empresaNombre" class="input-primary input-sm" placeholder="Nombre de tu empresa">
                     </div>
                     <div>
                         <label for="cot-empresaNit" class="label-form">NIT Empresa</label>
-                        <input type="text" id="cot-empresaNit" v-model="nuevaCotizacion.empresaNit" class="input-primary-emerald input-sm" placeholder="NIT de tu empresa">
+                        <input type="text" id="cot-empresaNit" v-model="nuevaCotizacion.empresaNit" class="input-primary input-sm" placeholder="NIT de tu empresa">
                     </div>
                     <div class="md:col-span-2">
                         <label for="cot-empresaDireccion" class="label-form">Dirección Empresa</label>
-                        <input type="text" id="cot-empresaDireccion" v-model="nuevaCotizacion.empresaDireccion" class="input-primary-emerald input-sm" placeholder="Dirección de tu empresa">
+                        <input type="text" id="cot-empresaDireccion" v-model="nuevaCotizacion.empresaDireccion" class="input-primary input-sm" placeholder="Dirección de tu empresa">
                     </div>
                     <div>
                         <label for="cot-empresaContacto" class="label-form">Contacto Empresa</label>
-                        <input type="text" id="cot-empresaContacto" v-model="nuevaCotizacion.empresaContacto" class="input-primary-emerald input-sm" placeholder="Teléfono, Email de tu empresa">
+                        <input type="text" id="cot-empresaContacto" v-model="nuevaCotizacion.empresaContacto" class="input-primary input-sm" placeholder="Teléfono, Email de tu empresa">
                     </div>
                      <div>
                         <label for="cot-empresaSlogan" class="label-form">Eslogan Empresa (Opcional)</label>
-                        <input type="text" id="cot-empresaSlogan" v-model="nuevaCotizacion.empresaSlogan" class="input-primary-emerald input-sm" placeholder="Tu eslogan aquí">
+                        <input type="text" id="cot-empresaSlogan" v-model="nuevaCotizacion.empresaSlogan" class="input-primary input-sm" placeholder="Tu eslogan aquí">
                     </div>
                     <div>
                         <label for="cot-empresaLogoUrlEstatica" class="label-form">URL Logo Estático (Opcional, ya no se muestra en PDF)</label>
-                        <input type="url" id="cot-empresaLogoUrlEstatica" v-model="nuevaCotizacion.empresaLogoUrlEstatica" class="input-primary-emerald input-sm" placeholder="https://ejemplo.com/logo.png">
+                        <input type="url" id="cot-empresaLogoUrlEstatica" v-model="nuevaCotizacion.empresaLogoUrlEstatica" class="input-primary input-sm" placeholder="https://ejemplo.com/logo.png">
                          <img v-if="nuevaCotizacion.empresaLogoUrlEstatica" :src="nuevaCotizacion.empresaLogoUrlEstatica" alt="Preview Logo" class="mt-2 h-12 w-auto border border-gray-600 rounded">
                     </div>
                      <div>
                         <label for="cot-pdfTitulo" class="label-form">Título Principal PDF (ej. COTIZACIÓN - JARDINIZACIÓN)</label>
-                        <input type="text" id="cot-pdfTitulo" v-model="nuevaCotizacion.pdfTitulo" class="input-primary-emerald input-sm" placeholder="COTIZACIÓN - SERVICIOS">
+                        <input type="text" id="cot-pdfTitulo" v-model="nuevaCotizacion.pdfTitulo" class="input-primary input-sm" placeholder="COTIZACIÓN - SERVICIOS">
                     </div>
                 </div>
             </div>
@@ -150,27 +150,27 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-4 border-b border-gray-700/50">
               <div>
                 <label for="cot-clienteNombre" class="label-form">Nombre del Cliente <span class="text-red-500">*</span></label>
-                <input type="text" id="cot-clienteNombre" v-model="nuevaCotizacion.clienteNombre" class="input-primary-emerald" required placeholder="Ej: Constructora XYZ">
+                <input type="text" id="cot-clienteNombre" v-model="nuevaCotizacion.clienteNombre" class="input-primary" required placeholder="Ej: Constructora XYZ">
               </div>
               <div>
                 <label for="cot-fechaCreacion" class="label-form">Fecha Creación <span class="text-red-500">*</span></label>
-                <input type="date" id="cot-fechaCreacion" v-model="nuevaCotizacion.fechaCreacion" class="input-primary-emerald date-input" required>
+                <input type="date" id="cot-fechaCreacion" v-model="nuevaCotizacion.fechaCreacion" class="input-primary date-input" required>
               </div>
               <div>
                 <label for="cot-fechaVencimiento" class="label-form">Validez Hasta <span class="text-red-500">*</span></label>
-                <input type="date" id="cot-fechaVencimiento" v-model="nuevaCotizacion.fechaVencimiento" class="input-primary-emerald date-input" required>
+                <input type="date" id="cot-fechaVencimiento" v-model="nuevaCotizacion.fechaVencimiento" class="input-primary date-input" required>
               </div>
               <div class="md:col-span-1">
                 <label for="cot-clienteContacto" class="label-form">Contacto (Opcional)</label>
-                <input type="text" id="cot-clienteContacto" v-model="nuevaCotizacion.clienteContacto" class="input-primary-emerald" placeholder="Ej: Ing. Juan Pérez, Tel: 555-1234">
+                <input type="text" id="cot-clienteContacto" v-model="nuevaCotizacion.clienteContacto" class="input-primary" placeholder="Ej: Ing. Juan Pérez, Tel: 555-1234">
               </div>
                <div class="md:col-span-2">
                 <label for="cot-numero" class="label-form">Número Cotización (Autogenerado si se deja vacío)</label>
-                <input type="text" id="cot-numero" v-model="nuevaCotizacion.numeroCotizacion" class="input-primary-emerald font-mono" placeholder="Ej: COT-2025-001">
+                <input type="text" id="cot-numero" v-model="nuevaCotizacion.numeroCotizacion" class="input-primary font-mono" placeholder="Ej: COT-2025-001">
               </div>
                <div class="md:col-span-3">
                 <label for="cot-proyectoNombre" class="label-form">Nombre del Proyecto/Referencia</label>
-                <input type="text" id="cot-proyectoNombre" v-model="nuevaCotizacion.proyectoNombre" class="input-primary-emerald" placeholder="Ej: Jardinería Residencia XYZ">
+                <input type="text" id="cot-proyectoNombre" v-model="nuevaCotizacion.proyectoNombre" class="input-primary" placeholder="Ej: Jardinería Residencia XYZ">
               </div>
             </div>
 
@@ -179,19 +179,19 @@
               <div v-for="(item, index) in nuevaCotizacion.lineItems" :key="index" class="grid grid-cols-12 gap-x-3 gap-y-2 items-end p-3 bg-gray-700/30 rounded-md border border-gray-600/50">
                 <div class="col-span-12 md:col-span-6">
                   <label :for="'item-desc-' + index" class="label-form text-xs">Descripción <span class="text-red-500">*</span></label>
-                  <input type="text" :id="'item-desc-' + index" v-model="item.descripcion" class="input-primary-emerald input-sm" required placeholder="Descripción del servicio o producto">
+                  <input type="text" :id="'item-desc-' + index" v-model="item.descripcion" class="input-primary input-sm" required placeholder="Descripción del servicio o producto">
                 </div>
                 <div class="col-span-4 md:col-span-2">
                   <label :for="'item-cant-' + index" class="label-form text-xs">Cantidad <span class="text-red-500">*</span></label>
-                  <input type="number" :id="'item-cant-' + index" v-model.number="item.cantidad" @input="actualizarTotalItem(index)" min="0.01" step="any" class="input-primary-emerald input-sm text-right" required>
+                  <input type="number" :id="'item-cant-' + index" v-model.number="item.cantidad" @input="actualizarTotalItem(index)" min="0.01" step="any" class="input-primary input-sm text-right" required>
                 </div>
                 <div class="col-span-4 md:col-span-2">
                   <label :for="'item-precio-' + index" class="label-form text-xs">Precio Unit. (Q) <span class="text-red-500">*</span></label>
-                  <input type="number" :id="'item-precio-' + index" v-model.number="item.precioUnitario" @input="actualizarTotalItem(index)" min="0.01" step="any" class="input-primary-emerald input-sm text-right" required>
+                  <input type="number" :id="'item-precio-' + index" v-model.number="item.precioUnitario" @input="actualizarTotalItem(index)" min="0.01" step="any" class="input-primary input-sm text-right" required>
                 </div>
                 <div class="col-span-4 md:col-span-2">
                     <label class="label-form text-xs">Total Item (Q)</label>
-                    <input type="text" :value="(item.totalItem || 0).toFixed(2)" class="input-primary-emerald input-sm text-right bg-gray-800/50" readonly>
+                    <input type="text" :value="(item.totalItem || 0).toFixed(2)" class="input-primary input-sm text-right bg-gray-800/50" readonly>
                 </div>
                 <div class="col-span-12 flex justify-end md:col-span-1 md:justify-start">
                   <button type="button" @click="eliminarLineaItem(index)" class="btn-danger-outline btn-sm p-2" title="Eliminar Línea">
@@ -207,18 +207,18 @@
             
             <div class="pt-4 border-t border-gray-700/50">
                 <label for="cot-servicioIncluye" class="label-form">El Servicio Incluye (Un punto por línea):</label>
-                <textarea id="cot-servicioIncluye" v-model="nuevaCotizacion.servicioIncluye" class="input-primary-emerald" rows="5" placeholder="Ej: Suministro de todas las plantas y materiales descritos&#10;Preparación del terreno&#10;..."></textarea>
+                <textarea id="cot-servicioIncluye" v-model="nuevaCotizacion.servicioIncluye" class="input-primary" rows="5" placeholder="Ej: Suministro de todas las plantas y materiales descritos&#10;Preparación del terreno&#10;..."></textarea>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-700/50">
               <div class="md:col-span-2 space-y-4">
                 <div>
                   <label for="cot-terminos" class="label-form">Términos y Condiciones</label>
-                  <textarea id="cot-terminos" v-model="nuevaCotizacion.terminosCondiciones" class="input-primary-emerald" rows="4" placeholder="Ej: Pago 50% anticipado, 50% contra entrega. Validez de la oferta: 15 días."></textarea>
+                  <textarea id="cot-terminos" v-model="nuevaCotizacion.terminosCondiciones" class="input-primary" rows="4" placeholder="Ej: Pago 50% anticipado, 50% contra entrega. Validez de la oferta: 15 días."></textarea>
                 </div>
                  <div>
                   <label for="cot-notas" class="label-form">Notas Adicionales (Opcional)</label>
-                  <textarea id="cot-notas" v-model="nuevaCotizacion.notasAdicionales" class="input-primary-emerald" rows="2" placeholder="Cualquier observación o nota interna."></textarea>
+                  <textarea id="cot-notas" v-model="nuevaCotizacion.notasAdicionales" class="input-primary" rows="2" placeholder="Cualquier observación o nota interna."></textarea>
                 </div>
               </div>
               <div class="space-y-3 p-4 bg-gray-900/30 rounded-lg border border-gray-600/50">
@@ -228,7 +228,7 @@
                 </div>
                 <div class="flex justify-between items-center">
                   <label for="cot-impuestos" class="text-gray-400 font-medium">Impuestos (IVA {{ (nuevaCotizacion.porcentajeImpuestos || 12).toFixed(0) }}%):</label>
-                  <input type="number" id="cot-impuestos" v-model.number="nuevaCotizacion.impuestos" @input="calcularTotalGeneralDesdeImpuesto" class="input-primary-emerald input-sm w-24 text-right" placeholder="0.00">
+                  <input type="number" id="cot-impuestos" v-model.number="nuevaCotizacion.impuestos" @input="calcularTotalGeneralDesdeImpuesto" class="input-primary input-sm w-24 text-right" placeholder="0.00">
                 </div>
                  <div class="flex justify-between items-center pt-2 border-t border-gray-600">
                   <span class="text-emerald-400 font-bold text-xl">TOTAL GENERAL:</span>
@@ -236,12 +236,12 @@
                 </div>
                  <div class="mt-2">
                     <label for="cot-estado" class="label-form">Estado de la Cotización</label>
-                    <select id="cot-estado" v-model="nuevaCotizacion.estado" class="input-primary-emerald select-input">
-                        <option value="Borrador" class="option-dark">Borrador</option>
-                        <option value="Enviada" class="option-dark">Enviada</option>
-                        <option value="Aceptada" class="option-dark">Aceptada</option>
-                        <option value="Rechazada" class="option-dark">Rechazada</option>
-                        <option value="Facturada" class="option-dark">Facturada</option>
+                    <select id="cot-estado" v-model="nuevaCotizacion.estado" class="input-primary select-input">
+                        <option value="Borrador" class="option-light">Borrador</option>
+                        <option value="Enviada" class="option-light">Enviada</option>
+                        <option value="Aceptada" class="option-light">Aceptada</option>
+                        <option value="Rechazada" class="option-light">Rechazada</option>
+                        <option value="Facturada" class="option-light">Facturada</option>
                     </select>
                 </div>
               </div>
@@ -1072,35 +1072,10 @@ watch(modoEdicionCotizacion, (esEdicion) => {
 
 <style scoped>
 /* ESTILOS GENERALES DE LA APLICACIÓN (EXISTENTES) */
-.glass-container-emerald { 
-  @apply bg-gray-800/70 backdrop-blur-lg border border-emerald-500/30 shadow-xl shadow-emerald-500/10;
-}
-.input-primary-emerald {
-  @apply w-full px-3 py-2 rounded-lg border border-gray-600/70 bg-gray-900/40 text-gray-200 placeholder-gray-500
-        focus:outline-none focus:ring-2 focus:ring-emerald-500/70 focus:border-emerald-500
-        transition-all duration-150 text-sm shadow-inner shadow-black/30
-        disabled:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed;
-}
-.input-primary-emerald.date-input::-webkit-calendar-picker-indicator,
-.input-primary-emerald.month-input::-webkit-calendar-picker-indicator {
-    filter: invert(0.7) sepia(0.5) saturate(5) hue-rotate(100deg) brightness(1.2); 
-    cursor: pointer;
-}
-.input-primary-emerald:focus.select-input {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2310b981' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); 
-}
 .input-sm {
     @apply py-1.5 text-xs;
 }
-.select-input {
-  @apply appearance-none bg-no-repeat bg-right pr-8;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-  background-position: right 0.5rem center;
-  background-size: 1.5em 1.5em;
-}
-.option-dark {
-  @apply bg-gray-800 text-gray-200;
-}
+.label-form { @apply block text-sm font-medium text-gray-400 mb-1; }
 .label-form { @apply block text-sm font-medium text-gray-400 mb-1; }
 .btn-primary-emerald { @apply px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold rounded-lg shadow-md hover:from-emerald-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-emerald-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center; }
 .btn-secondary { @apply px-4 py-2 bg-gray-600/70 hover:bg-gray-500/70 border border-gray-500/50 text-gray-200 font-semibold rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-400 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center; }
