@@ -11,7 +11,7 @@ import {
     orderBy, 
     limit 
   } from 'firebase/firestore';
-import { db, auth } from '../firebase.js';
+  import { db, auth } from './firebase';
   
   // Guardar datos financieros diarios
   export const saveFinancialData = async (financialData) => {
