@@ -103,3 +103,54 @@
   --chart-tooltip-text: #F3F4F6;
   --chart-legend-text: #9CA3AF;
 }
+
+/* ------------------------------ */
+/* -- TEMA CORPORATIVO (NUEVO) -- */
+/* ------------------------------ */
+.theme-corporativo {
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --bg-accent: #e8edf3;
+  --bg-navbar: rgba(0, 80, 160, 0.85);
+  --bg-modal: rgba(245, 247, 250, 0.95);
+
+  --text-primary: #00264d;
+  --text-secondary: #335b83;
+  --text-accent: #0a84c1;
+  --text-on-accent-bg: #ffffff;
+
+  --border-primary: #c4d0e0;
+  --border-secondary: #e2eaf2;
+  --border-accent: #0a84c1;
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-navbar: rgba(0, 80, 160, 0.2);
+
+  --brand-emerald: #10B981;
+  --brand-emerald-text: #059669;
+  --brand-red: #EF4444;
+  --brand-red-text: #DC2626;
+  --brand-blue: #3B82F6;
+  --brand-blue-text: #2563EB;
+  --brand-purple: #8B5CF6;
+  --brand-purple-text: #7C3AED;
+  --brand-pink: #EC4899;
+  --brand-pink-text: #DB2777;
+  --brand-yellow: #F59E0B;
+  --brand-yellow-text: #D97706;
+
+  --input-bg: #ffffff;
+  --input-border: #c4d0e0;
+  --input-text: #00264d;
+  --input-focus-ring: #0a84c1;
+
+  --scrollbar-thumb: #a0aec0;
+  --scrollbar-track: #e2eaf2;
+
+  --chart-grid-color: rgba(0, 0, 0, 0.1);
+  --chart-tick-color: #335b83;
+  --chart-tooltip-bg: rgba(255, 255, 255, 0.95);
+  --chart-tooltip-text: #00264d;
+  --chart-legend-text: #335b83;
+}
+
