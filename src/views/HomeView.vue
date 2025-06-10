@@ -30,6 +30,10 @@
 </template>
 
 <script setup>
+import { useAppStore } from '../stores'
+
+const store = useAppStore()
+
 const backgroundStyle = {
   backgroundImage: "url('/assets/futuristic-bg.avif')",
   backgroundSize: 'cover',
@@ -38,11 +42,13 @@ const backgroundStyle = {
 
 // 2. Funciones para controlar la animación de entrada
 const beforeEnter = (el) => {
+  if (!store.animationsEnabled) return
   el.style.opacity = 0
   el.style.transform = 'translateY(20px)'
 }
 
 const enter = (el) => {
+  if (!store.animationsEnabled) return
   el.style.opacity = 1
   el.style.transform = 'translateY(0)'
   el.style.transition = 'all 0.6s ease-out'
