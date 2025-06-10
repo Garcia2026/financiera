@@ -6,7 +6,8 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-16">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <div v-if="usuario" class="bg-gradient-to-r from-blue-900/90 to-blue-800/90 backdrop-blur-sm text-white py-2 px-4 rounded-lg shadow-lg shadow-blue-500/20 flex items-center gap-2 border border-blue-500/30 animate-[fade-in-right_0.6s_ease-out]">
+        <div v-if="usuario" class="bg-gradient-to-r from-blue-900/90 to-blue-800/90 backdrop-blur-sm text-white py-2 px-4 rounded-lg shadow-lg shadow-blue-500/20 flex items-center gap-2 border border-blue-500/30"
+             :class="store.animationsEnabled ? 'animate-[fade-in-right_0.6s_ease-out]' : ''">
           <div class="bg-blue-500/30 rounded-full p-1 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -18,11 +19,13 @@
           </div>
         </div>
 
-        <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-300 text-center glow-emerald animate-[fade-in-down_0.6s_ease-out]">
+        <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-300 text-center glow-emerald"
+            :class="store.animationsEnabled ? 'animate-[fade-in-down_0.6s_ease-out]' : ''">
           Dashboard Empresarial
         </h2>
 
-        <div class="bg-gradient-to-r from-emerald-900/80 to-emerald-800/80 backdrop-blur-md text-white py-2 px-4 rounded-lg shadow-lg shadow-emerald-500/20 border border-emerald-500/30 animate-[fade-in-left_0.6s_ease-out]">
+        <div class="bg-gradient-to-r from-emerald-900/80 to-emerald-800/80 backdrop-blur-md text-white py-2 px-4 rounded-lg shadow-lg shadow-emerald-500/20 border border-emerald-500/30"
+             :class="store.animationsEnabled ? 'animate-[fade-in-left_0.6s_ease-out]' : ''">
           <div class="flex flex-col items-end">
             <div class="text-xs opacity-90 font-medium">{{ currentDate }}</div>
             <div class="font-mono font-bold text-base leading-tight tracking-wider text-emerald-300">{{ currentTime }}</div>
@@ -364,9 +367,14 @@
 import Chart from 'chart.js/auto';
 import { db } from '../firebase/firebase'; // Asegúrate que la ruta a tu config de Firebase sea correcta
 import { collection, getDocs, query, where, orderBy, limit, Timestamp } from 'firebase/firestore';
+import { useAppStore } from '../stores'
 
 export default {
   name: 'EnterpriseDashboard',
+  setup() {
+    const store = useAppStore()
+    return { store }
+  },
   data() {
     return {
       usuario: 'Usuario Principal', // Puedes obtenerlo de tu sistema de auth

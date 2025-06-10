@@ -1,14 +1,20 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
-import './assets/tailwind.css';
-import './assets/css/themes.css'; // <-- AÑADE ESTA LÍNEA (ajusta la ruta si lo guardaste en otro lugar)
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import './assets/tailwind.css'
+import './assets/css/themes.css'
+import { createPinia } from 'pinia'
+import { useAppStore } from './stores'
 
 // 1. Importa el plugin y su CSS
-import Toast from 'vue-toastification';
-import 'vue-toastification/dist/index.css';
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
 
-const app = createApp(App);
+const app = createApp(App)
+const pinia = createPinia()
+app.use(pinia)
+const store = useAppStore()
+store.loadAnimationsPref()
 
 // 2. Opcional: Define las opciones de configuración para las notificaciones
 const options = {
@@ -24,11 +30,11 @@ const options = {
     closeButton: "button",
     icon: true,
     rtl: false
-};
+}
 
 // 3. Registra el router y LUEGO el plugin Toast ANTES de montar la app
-app.use(router);
-app.use(Toast, options);
+app.use(router)
+app.use(Toast, options)
 
 // 4. Monta la aplicación
-app.mount('#app');
+app.mount('#app')
