@@ -85,7 +85,7 @@
       </div>
 
       <div v-if="vistaSeleccionada === 'general' && !isLoading">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 mb-10">
           <div class="summary-card border-emerald-500" style="animation-delay: 0s">
             <div class="flex justify-between items-start">
               <div>
@@ -190,6 +190,24 @@
               </div>
             </div>
               <router-link to="/finanzas" class="mt-3 block text-sm text-red-400 hover:text-red-300 transition-colors flex items-center gap-1 w-max group">
+              <span>Ver finanzas</span>
+              <span class="transition-transform group-hover:translate-x-1">→</span>
+            </router-link>
+          </div>
+
+          <div class="summary-card border-teal-500" style="animation-delay: 0.5s">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-sm font-medium text-gray-400 mb-1">Beneficio Neto</h3>
+                <p class="text-3xl font-bold text-teal-400">{{ formatearDinero(beneficioNeto) }}</p>
+              </div>
+              <div class="p-3 bg-teal-900/30 rounded-lg shadow-inner flex items-center justify-center border border-teal-500/20">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3 .895-3 2 1.343 2 3 2m0-8V7m0 1v8m0 0v1m0-1c1.11 0 2.08-.402 2.599-1M3 12a9 9 0 0118 0" />
+                </svg>
+              </div>
+            </div>
+            <router-link to="/finanzas" class="mt-3 block text-sm text-teal-400 hover:text-teal-300 transition-colors flex items-center gap-1 w-max group">
               <span>Ver finanzas</span>
               <span class="transition-transform group-hover:translate-x-1">→</span>
             </router-link>
@@ -399,6 +417,7 @@ export default {
       ingresosTotales: 0,
       crecimientoIngresos: 0, // %
       gastosTotales: 0,
+      beneficioNeto: 0,
       crecimientoGastos: 0, // %
 
       // Para el gráfico de Flujo de Caja
@@ -635,6 +654,7 @@ export default {
         const gastosDelPeriodo = snapshotGastosPeriodo.docs.map(doc => ({ id: doc.id, ...doc.data()}));
         const gastosActuales = gastosDelPeriodo.reduce((sum, g) => sum + (Number(g.monto) || 0), 0);
         this.gastosTotales = gastosActuales;
+        this.beneficioNeto = this.ingresosTotales - this.gastosTotales;
         console.log("Dashboard: Gastos período actual:", this.gastosTotales, gastosDelPeriodo);
 
 
@@ -670,6 +690,7 @@ export default {
         } else { // Ni ingresos ni gastos
           this.margenGanancia = 0;
         }
+        this.beneficioNeto = this.ingresosTotales - this.gastosTotales;
         console.log("Dashboard: Margen de ganancia calculado:", this.margenGanancia);
 
 
