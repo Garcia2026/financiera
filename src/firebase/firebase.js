@@ -4,13 +4,18 @@ import { getFirestore } from "firebase/firestore"
 import { getAnalytics } from "firebase/analytics"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfg7VAw2F6umMmYBY0r0aL09OHXgqGHgI",
-  authDomain: "fincontrol-app.firebaseapp.com",
-  projectId: "fincontrol-app",
-  storageBucket: "fincontrol-app.firebasestorage.app",
-  messagingSenderId: "714910121771",
-  appId: "1:714910121771:web:be6f6fe8dc7de987528f6e",
-  measurementId: "G-TB4C5Z2Q29"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || process.env.VITE_FIREBASE_API_KEY,
+  authDomain:
+    import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || process.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket:
+    import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || process.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId:
+    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ||
+    process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || process.env.VITE_FIREBASE_APP_ID,
+  measurementId:
+    import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || process.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
 
 const app = initializeApp(firebaseConfig)
