@@ -421,7 +421,8 @@ const expandedGroups = reactive({});
 const uniqueCategories = ref([]);
 
 // --- Constantes y Configuración ---
-const SECURE_ACTION_PASSWORD = 'solucionesgn';
+// Contraseña requerida para confirmar acciones sensibles
+const SECURE_ACTION_PASSWORD = 'Jardines2025#';
 const months = [
     { name: 'Enero', value: '01' }, { name: 'Febrero', value: '02' }, { name: 'Marzo', value: '03' },
     { name: 'Abril', value: '04' }, { name: 'Mayo', value: '05' }, { name: 'Junio', value: '06' },
