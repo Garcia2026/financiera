@@ -13,6 +13,7 @@ import {
     serverTimestamp
   } from 'firebase/firestore'
   import { db } from '../firebase/firebase'
+import logger from "@/utils/logger";
   
   /**
    * Obtiene todos los documentos de una colección
@@ -27,7 +28,7 @@ import {
         ...doc.data()
       }))
     } catch (error) {
-      console.error(`Error al obtener documentos de ${coleccion}:`, error)
+      logger.error(`Error al obtener documentos de ${coleccion}:`, error)
       throw error
     }
   }
@@ -52,7 +53,7 @@ import {
         throw new Error(`Documento ${id} no encontrado en ${coleccion}`)
       }
     } catch (error) {
-      console.error(`Error al obtener documento ${id} de ${coleccion}:`, error)
+      logger.error(`Error al obtener documento ${id} de ${coleccion}:`, error)
       throw error
     }
   }
@@ -75,7 +76,7 @@ import {
       const docRef = await addDoc(collection(db, coleccion), datosFinales)
       return docRef.id
     } catch (error) {
-      console.error(`Error al agregar documento a ${coleccion}:`, error)
+      logger.error(`Error al agregar documento a ${coleccion}:`, error)
       throw error
     }
   }
@@ -98,7 +99,7 @@ import {
       
       await updateDoc(doc(db, coleccion, id), datosFinales)
     } catch (error) {
-      console.error(`Error al actualizar documento ${id} en ${coleccion}:`, error)
+      logger.error(`Error al actualizar documento ${id} en ${coleccion}:`, error)
       throw error
     }
   }
@@ -113,7 +114,7 @@ import {
     try {
       await deleteDoc(doc(db, coleccion, id))
     } catch (error) {
-      console.error(`Error al eliminar documento ${id} de ${coleccion}:`, error)
+      logger.error(`Error al eliminar documento ${id} de ${coleccion}:`, error)
       throw error
     }
   }
@@ -136,7 +137,7 @@ import {
         ...doc.data()
       }))
     } catch (error) {
-      console.error(`Error al obtener documentos filtrados de ${coleccion}:`, error)
+      logger.error(`Error al obtener documentos filtrados de ${coleccion}:`, error)
       throw error
     }
   }
@@ -173,7 +174,7 @@ import {
       
       return cobros
     } catch (error) {
-      console.error('Error al obtener cobros:', error)
+      logger.error('Error al obtener cobros:', error)
       throw error
     }
   }

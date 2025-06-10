@@ -1,5 +1,6 @@
 // src/composables/useTheme.js
 import { ref, onMounted, readonly } from 'vue'
+import logger from "@/utils/logger";
 
 const THEME_STORAGE_KEY = 'app-theme'
 
@@ -22,7 +23,7 @@ export function useTheme() {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, themeName)
     } catch (e) {
-      console.error('Failed to save theme preference:', e)
+      logger.error('Failed to save theme preference:', e)
     }
   }
 

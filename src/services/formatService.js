@@ -1,5 +1,6 @@
 // src/services/formatService.js
 import { Timestamp } from 'firebase/firestore'
+import logger from "@/utils/logger";
 
 /**
  * Formatea una fecha para mostrarla en formato local
@@ -22,7 +23,7 @@ export const formatearFecha = (fechaInput, options = {}) => {
     
     // Comprobar si la fecha es válida
     if (isNaN(fecha.getTime())) {
-      console.warn('Fecha inválida:', fechaInput)
+      logger.warn('Fecha inválida:', fechaInput)
       return String(fechaInput)
     }
 
@@ -36,7 +37,7 @@ export const formatearFecha = (fechaInput, options = {}) => {
     const formatOptions = { ...defaultOptions, ...options }
     return fecha.toLocaleDateString('es-GT', formatOptions)
   } catch (error) {
-    console.error('Error al formatear fecha:', error, fechaInput)
+    logger.error('Error al formatear fecha:', error, fechaInput)
     return String(fechaInput)
   }
 }
@@ -84,7 +85,7 @@ export const formatearMes = (mesStr) => {
       year: 'numeric' 
     })
   } catch (error) {
-    console.error('Error al formatear mes:', error, mesStr)
+    logger.error('Error al formatear mes:', error, mesStr)
     return mesStr
   }
 }

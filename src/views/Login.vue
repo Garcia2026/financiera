@@ -58,6 +58,7 @@
 </template>
 
 <script setup>
+import logger from "@/utils/logger";
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -91,7 +92,7 @@ const handleLogin = async () => {
     await signInWithEmailAndPassword(auth, email.value, password.value);
     router.push('/dashboard');
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     errorMsg.value = 'Credenciales incorrectas o error de red.';
     loading.value = false;
   }

@@ -13,6 +13,7 @@ import {
   } from 'firebase/firestore';
   import { db, auth } from './firebase';
   
+import logger from "@/utils/logger";
   // Guardar datos financieros diarios
   export const saveFinancialData = async (financialData) => {
     try {
@@ -33,10 +34,10 @@ import {
         userId: user.uid
       }, { merge: true });
   
-      console.log('Datos guardados exitosamente');
+      logger.log('Datos guardados exitosamente');
       return true;
     } catch (error) {
-      console.error('Error al guardar datos:', error);
+      logger.error('Error al guardar datos:', error);
       return false;
     }
   };
@@ -55,11 +56,11 @@ import {
       if (docSnap.exists()) {
         return docSnap.data();
       } else {
-        console.log('No se encontraron datos para esta fecha');
+        logger.log('No se encontraron datos para esta fecha');
         return null;
       }
     } catch (error) {
-      console.error('Error al obtener datos:', error);
+      logger.error('Error al obtener datos:', error);
       return null;
     }
   };
@@ -91,7 +92,7 @@ import {
   
       return records;
     } catch (error) {
-      console.error('Error al obtener historial:', error);
+      logger.error('Error al obtener historial:', error);
       return [];
     }
   };
@@ -110,10 +111,10 @@ import {
         updatedAt: serverTimestamp()
       });
   
-      console.log('Registro actualizado exitosamente');
+      logger.log('Registro actualizado exitosamente');
       return true;
     } catch (error) {
-      console.error('Error al actualizar registro:', error);
+      logger.error('Error al actualizar registro:', error);
       return false;
     }
   };

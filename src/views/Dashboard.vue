@@ -361,6 +361,7 @@
 </template>
 
 <script>
+import logger from "@/utils/logger";
 import Chart from 'chart.js/auto';
 import { db } from '../firebase/firebase'; // Asegúrate que la ruta a tu config de Firebase sea correcta
 import { collection, getDocs, query, where, orderBy, limit, Timestamp } from 'firebase/firestore';
@@ -452,12 +453,12 @@ export default {
         } else if (typeof fechaInput === 'string' || fechaInput instanceof Date) {
             fecha = new Date(fechaInput);
         } else {
-            console.warn("FormatearFecha: Tipo de fecha no reconocido", fechaInput);
+            logger.warn("FormatearFecha: Tipo de fecha no reconocido", fechaInput);
             return 'Fecha Inválida';
         }
 
         if (isNaN(fecha.getTime())) {
-            console.warn("FormatearFecha: Fecha inválida después de la conversión", fechaInput);
+            logger.warn("FormatearFecha: Fecha inválida después de la conversión", fechaInput);
             return 'Fecha Inválida';
         }
 
@@ -538,7 +539,7 @@ export default {
                 fechaInicio = new Date(anoActual, mesActual, 1, 0, 0, 0, 0);
                 fechaFin = new Date(anoActual, mesActual + 1, 0, 23, 59, 59, 999);
         }
-        // console.log(`DEBUG: getDateRangeForFilter(${periodoKey}, ${esAnterior}) -> Inicio: ${fechaInicio.toISOString()}, Fin: ${fechaFin.toISOString()}`);
+        // logger.log(`DEBUG: getDateRangeForFilter(${periodoKey}, ${esAnterior}) -> Inicio: ${fechaInicio.toISOString()}, Fin: ${fechaFin.toISOString()}`);
         return { fechaInicio, fechaFin };
     },
 
@@ -553,13 +554,13 @@ export default {
 
     async actualizarDatos() {
       this.isLoading = true;
-      console.log(`Dashboard: Iniciando actualización de datos para período: ${this.filtroPeriodo}`);
+      logger.log(`Dashboard: Iniciando actualización de datos para período: ${this.filtroPeriodo}`);
 
       const { fechaInicio, fechaFin } = this.getDateRangeForFilter(this.filtroPeriodo);
       const { fechaInicio: fechaInicioAnt, fechaFin: fechaFinAnt } = this.getDateRangeForFilter(this.filtroPeriodo, true);
       
-      console.log(`Dashboard: Período actual -> Inicio: ${fechaInicio.toISOString()}, Fin: ${fechaFin.toISOString()}`);
-      console.log(`Dashboard: Período anterior -> Inicio: ${fechaInicioAnt.toISOString()}, Fin: ${fechaFinAnt.toISOString()}`);
+      logger.log(`Dashboard: Período actual -> Inicio: ${fechaInicio.toISOString()}, Fin: ${fechaFin.toISOString()}`);
+      logger.log(`Dashboard: Período anterior -> Inicio: ${fechaInicioAnt.toISOString()}, Fin: ${fechaFinAnt.toISOString()}`);
 
 
       try {
@@ -567,7 +568,7 @@ export default {
         const tiendasCollectionRef = collection(db, 'tiendas');
         const snapshotTotalTiendas = await getDocs(tiendasCollectionRef);
         this.totalTiendas = snapshotTotalTiendas.size;
-        console.log("Dashboard: Total tiendas (global):", this.totalTiendas);
+        logger.log("Dashboard: Total tiendas (global):", this.totalTiendas);
 
         // --- 2. Tiendas del PERÍODO para cálculos ---
         // Usaremos 'fechaCreacion' (Timestamp) si existe, sino 'mesServicio' como fallback para el período
@@ -585,7 +586,7 @@ export default {
         const snapshotTiendasPeriodo = await getDocs(qTiendasPeriodo);
         const tiendasDelPeriodo = snapshotTiendasPeriodo.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         this.totalServiciosPeriodo = tiendasDelPeriodo.length;
-        console.log("Dashboard: Tiendas en período actual (" + mesInicioStr + " a " + mesFinStr + "):", this.totalServiciosPeriodo, tiendasDelPeriodo);
+        logger.log("Dashboard: Tiendas en período actual (" + mesInicioStr + " a " + mesFinStr + "):", this.totalServiciosPeriodo, tiendasDelPeriodo);
 
         const mesInicioAntStr = `${fechaInicioAnt.getFullYear()}-${String(fechaInicioAnt.getMonth() + 1).padStart(2, '0')}`;
         const mesFinAntStr = `${fechaFinAnt.getFullYear()}-${String(fechaFinAnt.getMonth() + 1).padStart(2, '0')}`;
@@ -595,13 +596,13 @@ export default {
         const snapshotTiendasPeriodoAnt = await getDocs(qTiendasPeriodoAnt);
         const tiendasDelPeriodoAnterior = snapshotTiendasPeriodoAnt.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         this.crecimientoTiendas = this.calcularCrecimiento(this.totalServiciosPeriodo, tiendasDelPeriodoAnterior.length);
-        console.log("Dashboard: Tiendas período anterior (" + mesInicioAntStr + " a " + mesFinAntStr + "):", tiendasDelPeriodoAnterior.length);
+        logger.log("Dashboard: Tiendas período anterior (" + mesInicioAntStr + " a " + mesFinAntStr + "):", tiendasDelPeriodoAnterior.length);
 
 
         // --- 3. Servicios Pendientes (del período actual) ---
         const estadosPendientes = ['Pendiente', 'En proceso de ODS', 'En COVA'];
         this.serviciosPendientes = tiendasDelPeriodo.filter(t => estadosPendientes.includes(t.estadoProceso)).length;
-        console.log("Dashboard: Servicios pendientes (período actual):", this.serviciosPendientes);
+        logger.log("Dashboard: Servicios pendientes (período actual):", this.serviciosPendientes);
 
         // --- 4. Ingresos (Tiendas Pagadas en el período) ---
         const ingresosActuales = tiendasDelPeriodo
@@ -613,7 +614,7 @@ export default {
             .filter(t => t.estadoProceso === 'Pagado')
             .reduce((sum, t) => sum + (Number(t.costo) || 0), 0);
         this.crecimientoIngresos = this.calcularCrecimiento(ingresosActuales, ingresosAnteriores);
-        console.log("Dashboard: Ingresos período actual:", this.ingresosTotales, "| Anterior:", ingresosAnteriores);
+        logger.log("Dashboard: Ingresos período actual:", this.ingresosTotales, "| Anterior:", ingresosAnteriores);
 
         // --- 5. Gastos (del período) ---
         const gastosCollectionRef = collection(db, 'gastos');
@@ -627,7 +628,7 @@ export default {
         const gastosDelPeriodo = snapshotGastosPeriodo.docs.map(doc => ({ id: doc.id, ...doc.data()}));
         const gastosActuales = gastosDelPeriodo.reduce((sum, g) => sum + (Number(g.monto) || 0), 0);
         this.gastosTotales = gastosActuales;
-        console.log("Dashboard: Gastos período actual:", this.gastosTotales, gastosDelPeriodo);
+        logger.log("Dashboard: Gastos período actual:", this.gastosTotales, gastosDelPeriodo);
 
 
         const tsFechaInicioAnt = Timestamp.fromDate(fechaInicioAnt);
@@ -639,7 +640,7 @@ export default {
         const gastosDelPeriodoAnterior = snapshotGastosPeriodoAnt.docs.map(doc => ({ id: doc.id, ...doc.data()}));
         const gastosAnteriores = gastosDelPeriodoAnterior.reduce((sum, g) => sum + (Number(g.monto) || 0), 0);
         this.crecimientoGastos = this.calcularCrecimiento(gastosActuales, gastosAnteriores, true);
-        console.log("Dashboard: Gastos período anterior:", gastosAnteriores);
+        logger.log("Dashboard: Gastos período anterior:", gastosAnteriores);
 
 
         // --- 6. Monto por Cobrar (Tiendas Facturadas NO Pagadas en el período) ---
@@ -652,7 +653,7 @@ export default {
             .filter(t => t.estadoProceso === 'Facturado')
             .reduce((sum, t) => sum + (Number(t.costo) || 0), 0);
         this.crecimientoPorCobrar = this.calcularCrecimiento(montoPorCobrarActual, montoPorCobrarAnterior);
-        console.log("Dashboard: Monto por cobrar (Facturado) período actual:", this.montoPendiente, "| Anterior:", montoPorCobrarAnterior);
+        logger.log("Dashboard: Monto por cobrar (Facturado) período actual:", this.montoPendiente, "| Anterior:", montoPorCobrarAnterior);
 
         // --- 7. Margen de Ganancia ---
         if (this.ingresosTotales > 0) {
@@ -662,14 +663,14 @@ export default {
         } else { // Ni ingresos ni gastos
           this.margenGanancia = 0;
         }
-        console.log("Dashboard: Margen de ganancia calculado:", this.margenGanancia);
+        logger.log("Dashboard: Margen de ganancia calculado:", this.margenGanancia);
 
 
         // --- 8. Tiendas Recientes (Top 5 global) ---
         const qTiendasRecientes = query(tiendasCollectionRef, orderBy('fechaCreacion', 'desc'), limit(5));
         const snapshotRecientes = await getDocs(qTiendasRecientes);
         this.tiendasRecientes = snapshotRecientes.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log("Dashboard: Tiendas recientes (global top 5):", this.tiendasRecientes);
+        logger.log("Dashboard: Tiendas recientes (global top 5):", this.tiendasRecientes);
 
 
         // --- 9. Cobros Próximos (Estimación) ---
@@ -682,7 +683,7 @@ export default {
         const todasLasTiendasSnapshot = await getDocs(query(tiendasCollectionRef, where('estadoProceso', '==', 'Facturado')));
         const tiendasFacturadasGlobal = todasLasTiendasSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
 
-        console.log("Dashboard: Tiendas Facturadas Global para Cobros Próximos:", tiendasFacturadasGlobal);
+        logger.log("Dashboard: Tiendas Facturadas Global para Cobros Próximos:", tiendasFacturadasGlobal);
 
         for (const tienda of tiendasFacturadasGlobal) {
             if (tienda.tipoPago === 'Crédito' && Number(tienda.diasCredito) > 0 && tienda.mesServicio) {
@@ -694,7 +695,7 @@ export default {
                 const fechaFinMesServicio = new Date(anoServ, mesServNum, 0); // Correcto: new Date(2023, 10, 0) es 31 Oct 2023.
 
                 if (isNaN(fechaFinMesServicio.getTime())) {
-                    console.warn(`Cobros Próximos: Fecha inválida para fin de mes de servicio ${tienda.mesServicio} en tienda ${tienda.id}`);
+                    logger.warn(`Cobros Próximos: Fecha inválida para fin de mes de servicio ${tienda.mesServicio} en tienda ${tienda.id}`);
                     continue;
                 }
                 
@@ -729,7 +730,7 @@ export default {
             .sort((a,b) => a.fechaVencimiento - b.fechaVencimiento)
             .slice(0, 10); // Limitar a 10 para la vista
 
-        console.log("Dashboard: Cobros próximos/vencidos procesados:", this.cobrosProximos);
+        logger.log("Dashboard: Cobros próximos/vencidos procesados:", this.cobrosProximos);
 
 
         // --- 10. Preparar datos para Flujo de Caja ---
@@ -739,17 +740,17 @@ export default {
         this.initOrUpdateCashFlowChart();
 
       } catch (error) {
-        console.error("Dashboard: Error al cargar datos del dashboard:", error);
+        logger.error("Dashboard: Error al cargar datos del dashboard:", error);
       } finally {
         this.isLoading = false;
-        console.log("Dashboard: Actualización de datos finalizada.");
+        logger.log("Dashboard: Actualización de datos finalizada.");
       }
     },
 
     async prepararDatosCashFlow(tiendasDelPeriodo, gastosDelPeriodo, fechaInicioPeriodo, fechaFinPeriodo) {
-        console.log("CashFlow: Iniciando preparación de datos. Vista:", this.vistaCashFlow, "Período Filtro:", this.filtroPeriodo);
-        console.log("CashFlow: Tiendas del período para ingresos:", tiendasDelPeriodo);
-        console.log("CashFlow: Gastos del período:", gastosDelPeriodo);
+        logger.log("CashFlow: Iniciando preparación de datos. Vista:", this.vistaCashFlow, "Período Filtro:", this.filtroPeriodo);
+        logger.log("CashFlow: Tiendas del período para ingresos:", tiendasDelPeriodo);
+        logger.log("CashFlow: Gastos del período:", gastosDelPeriodo);
 
         this.cashFlowData = {
             diario: { labels: [], ingresos: [], gastos: [] },
@@ -765,7 +766,7 @@ export default {
             .map(t => {
                 const [year, month] = t.mesServicio.split('-').map(Number);
                 if (isNaN(year) || isNaN(month)) {
-                    console.warn(`CashFlow: mesServicio inválido '${t.mesServicio}' para tienda ${t.id}`);
+                    logger.warn(`CashFlow: mesServicio inválido '${t.mesServicio}' para tienda ${t.id}`);
                     return null;
                 }
                 return {
@@ -773,7 +774,7 @@ export default {
                     monto: Number(t.costo)
                 };
             }).filter(ing => ing !== null && !isNaN(ing.fecha.getTime()));
-        console.log("CashFlow: Ingresos procesados (Pagados, con fecha al día 15):", ingresosProcesados);
+        logger.log("CashFlow: Ingresos procesados (Pagados, con fecha al día 15):", ingresosProcesados);
 
 
         // GASTOS: de la colección 'gastos' en el período.
@@ -790,17 +791,17 @@ export default {
             } else if (g.fecha instanceof Date) {
                 fechaGasto = g.fecha;
             } else {
-                console.warn(`CashFlow: Fecha de gasto en formato inesperado: ${g.fecha} (tipo: ${typeof g.fecha}) para gasto ID: ${g.id}`);
+                logger.warn(`CashFlow: Fecha de gasto en formato inesperado: ${g.fecha} (tipo: ${typeof g.fecha}) para gasto ID: ${g.id}`);
                 return null; // Será filtrado
             }
 
             if (isNaN(fechaGasto.getTime())) {
-                console.error(`CashFlow: Fecha de gasto inválida después de conversión: ${g.fecha} para gasto ID: ${g.id}`);
+                logger.error(`CashFlow: Fecha de gasto inválida después de conversión: ${g.fecha} para gasto ID: ${g.id}`);
                 return null; // Será filtrado
             }
             return { fecha: fechaGasto, monto: Number(g.monto) || 0 };
         }).filter(g => g !== null);
-        console.log("CashFlow: Gastos procesados (con fecha convertida):", gastosProcesados);
+        logger.log("CashFlow: Gastos procesados (con fecha convertida):", gastosProcesados);
 
 
         if (vista === 'diario') {
@@ -827,7 +828,7 @@ export default {
                 this.cashFlowData.diario.gastos.push(gastosDia);
                 if (this.cashFlowData.diario.labels.length >= 30) break; // Limitar a 30 puntos
             }
-            console.log("CashFlow (Diario):", JSON.parse(JSON.stringify(this.cashFlowData.diario)));
+            logger.log("CashFlow (Diario):", JSON.parse(JSON.stringify(this.cashFlowData.diario)));
 
 
         } else if (vista === 'semanal') {
@@ -864,7 +865,7 @@ export default {
                 
                 if (inicioSemana <= fechaInicioPeriodo && i > 0) break; // Si ya cubrimos el inicio del período, parar.
             }
-            console.log("CashFlow (Semanal):", JSON.parse(JSON.stringify(this.cashFlowData.semanal)));
+            logger.log("CashFlow (Semanal):", JSON.parse(JSON.stringify(this.cashFlowData.semanal)));
 
         } else if (vista === 'mensual') {
             let fechaIterador = new Date(fechaInicioPeriodo);
@@ -894,7 +895,7 @@ export default {
                     fechaIterador = new Date(ano, mes + 1, 1);
                 }
             }
-             console.log("CashFlow (Mensual):", JSON.parse(JSON.stringify(this.cashFlowData.mensual)));
+             logger.log("CashFlow (Mensual):", JSON.parse(JSON.stringify(this.cashFlowData.mensual)));
         }
     },
 
@@ -905,7 +906,7 @@ export default {
         this.cashFlowChartInstance = null; // Importante para recrear
       }
       if (!this.$refs.cashFlowChart) {
-        console.warn("CashFlow Chart: Canvas element no encontrado.");
+        logger.warn("CashFlow Chart: Canvas element no encontrado.");
         return;
       }
 
@@ -913,7 +914,7 @@ export default {
       const dataConfig = this.cashFlowData[this.vistaCashFlow];
 
       if (!dataConfig || !dataConfig.labels || dataConfig.labels.length === 0) {
-        console.warn("CashFlow Chart: No hay datos para la vista:", this.vistaCashFlow, "Config:", dataConfig);
+        logger.warn("CashFlow Chart: No hay datos para la vista:", this.vistaCashFlow, "Config:", dataConfig);
         // Opcional: dibujar un mensaje "No hay datos" en el canvas
         ctx.clearRect(0, 0, this.$refs.cashFlowChart.width, this.$refs.cashFlowChart.height);
         ctx.textAlign = 'center';
@@ -922,7 +923,7 @@ export default {
         ctx.fillText('No hay datos disponibles para esta vista y período.', this.$refs.cashFlowChart.width / 2, this.$refs.cashFlowChart.height / 2);
         return;
       }
-      console.log("CashFlow Chart: Renderizando con datos para vista", this.vistaCashFlow, ":", dataConfig);
+      logger.log("CashFlow Chart: Renderizando con datos para vista", this.vistaCashFlow, ":", dataConfig);
 
       this.cashFlowChartInstance = new Chart(ctx, {
         type: 'bar',
@@ -995,7 +996,7 @@ export default {
     },
 
     exportarDatos() {
-      console.log('Exportando datos para el período:', this.filtroPeriodo, 'y vista:', this.vistaSeleccionada);
+      logger.log('Exportando datos para el período:', this.filtroPeriodo, 'y vista:', this.vistaSeleccionada);
       // Aquí implementarías la lógica de exportación, por ejemplo, a CSV.
       // Podrías recolectar los datos de this.totalTiendas, this.ingresosTotales, etc.
       // y los datos de las tablas (tiendasRecientes, cobrosProximos).
@@ -1004,13 +1005,13 @@ export default {
     },
 
     verDetallesTienda(tiendaId) {
-      console.log('Ver detalles de tienda con ID (desde Dashboard):', tiendaId);
+      logger.log('Ver detalles de tienda con ID (desde Dashboard):', tiendaId);
       // this.$router.push({ name: 'DetalleTienda', params: { id: tiendaId } });
       alert('Navegación a detalles de tienda no implementada.');
     },
 
     verDetallesCobro(tiendaId) {
-      console.log('Ver detalles de cobro (tienda ID):', tiendaId);
+      logger.log('Ver detalles de cobro (tienda ID):', tiendaId);
       alert('Navegación a detalles de cobro no implementada.');
     },
 
@@ -1037,14 +1038,14 @@ export default {
             // Esto es útil si se cambia a 'general' y el gráfico no se mostró antes.
             this.$nextTick(() => { // Asegurar que el DOM esté actualizado
                  if (this.$refs.cashFlowChart && (!this.cashFlowChartInstance || this.cashFlowChartInstance.ctx === null) ) { // Si no hay instancia o se destruyó
-                    console.log("ActualizarDatosVisuales: Vista general seleccionada, intentando re-renderizar gráfico si es necesario.");
+                    logger.log("ActualizarDatosVisuales: Vista general seleccionada, intentando re-renderizar gráfico si es necesario.");
                     // Re-preparar y re-renderizar con los datos actuales del filtro de período
                     // Necesitamos los datos originales del período
                     // Por ahora, una llamada a actualizarDatos() es más simple para asegurar la consistencia.
                     this.actualizarDatos();
                  } else if (this.$refs.cashFlowChart && this.cashFlowChartInstance) {
                     // Si ya existe, solo asegúrate que esté visible y con datos correctos (actualizarDatos ya lo haría)
-                    console.log("ActualizarDatosVisuales: Gráfico ya existe, se actualizará con los datos del período.");
+                    logger.log("ActualizarDatosVisuales: Gráfico ya existe, se actualizará con los datos del período.");
                  }
             });
         }

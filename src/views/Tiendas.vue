@@ -479,6 +479,7 @@
 </template>
 
 <script setup>
+import logger from "@/utils/logger";
 import { ref, onMounted, computed } from 'vue'
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, getDoc, serverTimestamp, Timestamp, query, where } from 'firebase/firestore'
 // Asegúrate que la ruta a tu configuración de Firebase sea correcta
@@ -641,7 +642,7 @@ const formatearMes = (mesStr) => { if (!mesStr || !mesStr.includes('-')) return 
 
 // Firebase dependent functions
 const cargarTiendas = async () => {
-    if (!db) { console.warn("DB no inicializado, saltando cargarTiendas"); return; }
+    if (!db) { logger.warn("DB no inicializado, saltando cargarTiendas"); return; }
     cargando.value = true; tiendas.value = [];
     try {
         const snapshot = await getDocs(collection(db, 'tiendas'));
@@ -649,12 +650,12 @@ const cargarTiendas = async () => {
         snapshot.forEach(doc => { tiendasTemp.push({ id: doc.id, ...doc.data() }) });
         tiendas.value = tiendasTemp;
         actualizarMesesDisponibles();
-    } catch (error) { console.error("Error cargando tiendas:", error); }
+    } catch (error) { logger.error("Error cargando tiendas:", error); }
     finally { cargando.value = false; }
 }
 
 const cargarMarcas = async () => {
-    if (!db) { console.warn("DB no inicializado, saltando cargarMarcas"); return; }
+    if (!db) { logger.warn("DB no inicializado, saltando cargarMarcas"); return; }
     cargando.value = true;
     try {
         const marcasDocRef = doc(db, 'configuracion', 'marcas');
@@ -665,12 +666,12 @@ const cargarMarcas = async () => {
             marcas.value = ["McDonald's", "Pizza Hut", "Kentucky", "Starbucks", "Dunkin Donuts", "Edificio Naguchi", "Pandas", "Cliente Varios", "Proyecto Interno"];
         }
         marcas.value.sort((a, b) => a.localeCompare(b));
-    } catch (error) { console.error("Error cargando marcas:", error); }
+    } catch (error) { logger.error("Error cargando marcas:", error); }
     finally { cargando.value = false; }
 }
 
 const guardarTienda = async () => {
-    if (!db) { console.warn("DB no inicializado, saltando guardarTienda"); return; }
+    if (!db) { logger.warn("DB no inicializado, saltando guardarTienda"); return; }
     formEnviado.value = true;
     if (!formularioValido.value) return;
     cargando.value = true;
@@ -695,12 +696,12 @@ const guardarTienda = async () => {
         await cargarTiendas();
         nueva.value = { ...tiendaVacia };
         formEnviado.value = false;
-    } catch (error) { console.error("Error guardando tienda:", error); }
+    } catch (error) { logger.error("Error guardando tienda:", error); }
     finally { cargando.value = false; }
 }
 
 const actualizarTienda = async () => {
-    if (!db) { console.warn("DB no inicializado, saltando actualizarTienda"); return; }
+    if (!db) { logger.warn("DB no inicializado, saltando actualizarTienda"); return; }
     formEnviado.value = true;
     if (!formularioValido.value || !nueva.value.id) return;
     cargando.value = true;
@@ -727,12 +728,12 @@ const actualizarTienda = async () => {
         }
         await cargarTiendas();
         cancelarEdicion();
-    } catch (error) { console.error("Error actualizando tienda:", error); }
+    } catch (error) { logger.error("Error actualizando tienda:", error); }
     finally { cargando.value = false; }
 }
 
 const eliminarTienda = async () => {
-    if (!db) { console.warn("DB no inicializado, saltando eliminarTienda"); return; }
+    if (!db) { logger.warn("DB no inicializado, saltando eliminarTienda"); return; }
     if (!tiendaSeleccionada.value?.id) return;
     cargando.value = true; mostrarConfirmacion.value = false;
     const tiendaId = tiendaSeleccionada.value.id; const tiendaNombre = tiendaSeleccionada.value.nombre;
@@ -744,18 +745,18 @@ const eliminarTienda = async () => {
         await Promise.all(deletePromises);
         await deleteDoc(doc(db, 'tiendas', tiendaId));
         await cargarTiendas();
-    } catch (error) { console.error(`Error eliminando tienda ${tiendaNombre}:`, error); }
+    } catch (error) { logger.error(`Error eliminando tienda ${tiendaNombre}:`, error); }
     finally { cargando.value = false; tiendaSeleccionada.value = null; }
 }
 
 const cerrarModalMarcas = async () => {
-    if (!db) { console.warn("DB no inicializado, saltando cerrarModalMarcas"); mostrarModalMarcas.value = false; return; }
+    if (!db) { logger.warn("DB no inicializado, saltando cerrarModalMarcas"); mostrarModalMarcas.value = false; return; }
     mostrarModalMarcas.value = false; cargando.value = true;
     try {
         const marcasOrdenadas = [...marcas.value].sort((a, b) => a.localeCompare(b));
         await setDoc(doc(db, 'configuracion', 'marcas'), { lista: marcasOrdenadas }, { merge: true });
         marcas.value = marcasOrdenadas;
-    } catch (error) { console.error("Error guardando marcas:", error); }
+    } catch (error) { logger.error("Error guardando marcas:", error); }
     finally { cargando.value = false; }
 };
 
@@ -792,7 +793,7 @@ const exportarDatos = () => {
   if (cargando.value) return;
   if (tiendasFiltradas.value.length === 0) {
     // Consider using a custom modal for alerts instead of window.alert
-    console.warn("No hay tiendas para exportar según los filtros actuales.");
+    logger.warn("No hay tiendas para exportar según los filtros actuales.");
     return;
   }
   cargando.value = true;
@@ -842,19 +843,19 @@ const exportarDatos = () => {
             }
         });
     } else {
-        console.error("Error: pdfDoc.autoTable is not a function.");
+        logger.error("Error: pdfDoc.autoTable is not a function.");
         // Consider using a custom modal for alerts
     }
     pdfDoc.save(`reporte_tiendas_${new Date().toISOString().slice(0,10)}.pdf`);
   } catch (error) {
-    console.error("Error generando PDF:", error);
+    logger.error("Error generando PDF:", error);
     // Consider using a custom modal for alerts
   } finally { cargando.value = false; }
 };
 
 const abrirModalCalendario = () => { const mesSeleccionado = filtroMes.value; if (!mesSeleccionado) { const hoy = new Date(); const mesActual = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`; generarDatosCalendario(mesActual); } else { generarDatosCalendario(mesSeleccionado); } mostrarModalCalendario.value = true; }
-const generarDatosCalendario = (mesCompleto) => { if (!mesCompleto || !/^\d{4}-\d{2}$/.test(mesCompleto)) { diasDelMesCalendario.value = []; nombreMesCalendario.value = "Mes inválido"; return; } try { const [year, month] = mesCompleto.split('-').map(Number); const monthIndex = month - 1; const fechaTitulo = new Date(Date.UTC(year, monthIndex, 1)); nombreMesCalendario.value = fechaTitulo.toLocaleDateString('es-GT', { month: 'long', year: 'numeric', timeZone: 'UTC' }).replace(/^\w/, c => c.toUpperCase()); const primerDiaDelMes = new Date(Date.UTC(year, monthIndex, 1)); const ultimoDiaDelMes = new Date(Date.UTC(year, monthIndex + 1, 0)); const numDiasMes = ultimoDiaDelMes.getUTCDate(); const diaSemanaPrimerDia = primerDiaDelMes.getUTCDay(); const diasArray = []; const hoy = new Date(); const hoyStr = `${hoy.getUTCFullYear()}-${String(hoy.getUTCMonth() + 1).padStart(2, '0')}-${String(hoy.getUTCDate()).padStart(2, '0')}`; const diasPrevios = diaSemanaPrimerDia; const ultimoDiaMesAnterior = new Date(Date.UTC(year, monthIndex, 0)).getUTCDate(); for (let i = diasPrevios - 1; i >= 0; i--) { diasArray.push({ numero: ultimoDiaMesAnterior - i, esPlaceholder: true, visitas: [] }); } const visitasPorDia = {}; tiendas.value.forEach(tienda => { if (tienda.mesServicio === mesCompleto) { if (tienda.fechaPrimeraVisita) { const fechaStr = tienda.fechaPrimeraVisita; if (!visitasPorDia[fechaStr]) visitasPorDia[fechaStr] = []; visitasPorDia[fechaStr].push({ nombre: tienda.nombre, tipo: 'primera', estado: tienda.estadoPrimeraVisita || 'Programada', tiendaId: tienda.id }); } if (tienda.numVisitas == 2 && tienda.fechaSegundaVisita) { const fechaStr = tienda.fechaSegundaVisita; if (!visitasPorDia[fechaStr]) visitasPorDia[fechaStr] = []; visitasPorDia[fechaStr].push({ nombre: tienda.nombre, tipo: 'segunda', estado: tienda.estadoSegundaVisita || 'Programada', tiendaId: tienda.id }); } } }); for (let dia = 1; dia <= numDiasMes; dia++) { const fechaCompletaStr = `${year}-${String(month).padStart(2, '0')}-${String(dia).padStart(2, '0')}`; diasArray.push({ numero: dia, esPlaceholder: false, esHoy: fechaCompletaStr === hoyStr, fechaCompleta: fechaCompletaStr, visitas: visitasPorDia[fechaCompletaStr] || [] }); } const celdasRestantes = (7 - (diasArray.length % 7)) % 7; for (let i = 1; i <= celdasRestantes; i++) { diasArray.push({ numero: i, esPlaceholder: true, visitas: [] }); } while (diasArray.length < 35 && diasArray.length % 7 !== 0) { diasArray.push({ numero: diasArray.filter(d => d.esPlaceholder).length + 1 - diasPrevios + numDiasMes, esPlaceholder: true, visitas: [] });} if (diasArray.length === 35 && (diaSemanaPrimerDia > 4 && numDiasMes > 29 || diaSemanaPrimerDia > 5 && numDiasMes > 28) && (diasArray.length + numDiasMes + diasPrevios > 35) ) { for (let i = 1; i <= 7; i++) { diasArray.push({ numero: i + numDiasMes - ((numDiasMes + diasPrevios)%7), esPlaceholder: true, visitas: [] }); } } diasDelMesCalendario.value = diasArray; } catch (error) { console.error("Error generando calendario:", error); diasDelMesCalendario.value = []; nombreMesCalendario.value = "Error"; } }
-const verDetallesDesdeCalendario = (tiendaId) => { const tienda = tiendas.value.find(t => t.id === tiendaId); if (tienda) { mostrarModalCalendario.value = false; verDetalles(tienda); } else { console.warn("Tienda no encontrada:", tiendaId); } }
+const generarDatosCalendario = (mesCompleto) => { if (!mesCompleto || !/^\d{4}-\d{2}$/.test(mesCompleto)) { diasDelMesCalendario.value = []; nombreMesCalendario.value = "Mes inválido"; return; } try { const [year, month] = mesCompleto.split('-').map(Number); const monthIndex = month - 1; const fechaTitulo = new Date(Date.UTC(year, monthIndex, 1)); nombreMesCalendario.value = fechaTitulo.toLocaleDateString('es-GT', { month: 'long', year: 'numeric', timeZone: 'UTC' }).replace(/^\w/, c => c.toUpperCase()); const primerDiaDelMes = new Date(Date.UTC(year, monthIndex, 1)); const ultimoDiaDelMes = new Date(Date.UTC(year, monthIndex + 1, 0)); const numDiasMes = ultimoDiaDelMes.getUTCDate(); const diaSemanaPrimerDia = primerDiaDelMes.getUTCDay(); const diasArray = []; const hoy = new Date(); const hoyStr = `${hoy.getUTCFullYear()}-${String(hoy.getUTCMonth() + 1).padStart(2, '0')}-${String(hoy.getUTCDate()).padStart(2, '0')}`; const diasPrevios = diaSemanaPrimerDia; const ultimoDiaMesAnterior = new Date(Date.UTC(year, monthIndex, 0)).getUTCDate(); for (let i = diasPrevios - 1; i >= 0; i--) { diasArray.push({ numero: ultimoDiaMesAnterior - i, esPlaceholder: true, visitas: [] }); } const visitasPorDia = {}; tiendas.value.forEach(tienda => { if (tienda.mesServicio === mesCompleto) { if (tienda.fechaPrimeraVisita) { const fechaStr = tienda.fechaPrimeraVisita; if (!visitasPorDia[fechaStr]) visitasPorDia[fechaStr] = []; visitasPorDia[fechaStr].push({ nombre: tienda.nombre, tipo: 'primera', estado: tienda.estadoPrimeraVisita || 'Programada', tiendaId: tienda.id }); } if (tienda.numVisitas == 2 && tienda.fechaSegundaVisita) { const fechaStr = tienda.fechaSegundaVisita; if (!visitasPorDia[fechaStr]) visitasPorDia[fechaStr] = []; visitasPorDia[fechaStr].push({ nombre: tienda.nombre, tipo: 'segunda', estado: tienda.estadoSegundaVisita || 'Programada', tiendaId: tienda.id }); } } }); for (let dia = 1; dia <= numDiasMes; dia++) { const fechaCompletaStr = `${year}-${String(month).padStart(2, '0')}-${String(dia).padStart(2, '0')}`; diasArray.push({ numero: dia, esPlaceholder: false, esHoy: fechaCompletaStr === hoyStr, fechaCompleta: fechaCompletaStr, visitas: visitasPorDia[fechaCompletaStr] || [] }); } const celdasRestantes = (7 - (diasArray.length % 7)) % 7; for (let i = 1; i <= celdasRestantes; i++) { diasArray.push({ numero: i, esPlaceholder: true, visitas: [] }); } while (diasArray.length < 35 && diasArray.length % 7 !== 0) { diasArray.push({ numero: diasArray.filter(d => d.esPlaceholder).length + 1 - diasPrevios + numDiasMes, esPlaceholder: true, visitas: [] });} if (diasArray.length === 35 && (diaSemanaPrimerDia > 4 && numDiasMes > 29 || diaSemanaPrimerDia > 5 && numDiasMes > 28) && (diasArray.length + numDiasMes + diasPrevios > 35) ) { for (let i = 1; i <= 7; i++) { diasArray.push({ numero: i + numDiasMes - ((numDiasMes + diasPrevios)%7), esPlaceholder: true, visitas: [] }); } } diasDelMesCalendario.value = diasArray; } catch (error) { logger.error("Error generando calendario:", error); diasDelMesCalendario.value = []; nombreMesCalendario.value = "Error"; } }
+const verDetallesDesdeCalendario = (tiendaId) => { const tienda = tiendas.value.find(t => t.id === tiendaId); if (tienda) { mostrarModalCalendario.value = false; verDetalles(tienda); } else { logger.warn("Tienda no encontrada:", tiendaId); } }
 
 const getProcessStatusColor = (status) => {
     switch (status) {
@@ -888,27 +889,27 @@ const getVisitStatusBgColor = (status, tipoVisita) => {
 }
 
 onMounted(async () => {
-  console.log("Tiendas (Light Theme with Teal/Emerald - Suspense Fix) montado.");
+  logger.log("Tiendas (Light Theme with Teal/Emerald - Suspense Fix) montado.");
   try {
     // Intenta importar db y luego inicializarlo.
     // La ruta '../firebase/firebase' debe ser correcta respecto a la ubicación de este componente.
     const firebaseModule = await import('../firebase/firebase');
     db = firebaseModule.db; // Asume que firebase.js exporta 'db'
-    console.log("Firebase DB initialized in onMounted:", db);
+    logger.log("Firebase DB initialized in onMounted:", db);
 
     // Solo cargar datos si db se inicializó correctamente
     if (db) {
       await cargarMarcas();
       await cargarTiendas();
     } else {
-      console.warn("Firebase DB no se pudo inicializar. Saltando carga de datos.");
+      logger.warn("Firebase DB no se pudo inicializar. Saltando carga de datos.");
       // Opcionalmente, puedes cargar datos de ejemplo aquí para desarrollo sin Firebase
       // marcas.value = ["Marca Ejemplo 1", "Marca Ejemplo 2"];
       // tiendas.value = [ /* ...datos de ejemplo... */ ];
       // actualizarMesesDisponibles(); // Si tienes datos de ejemplo
     }
   } catch (e) {
-    console.error("Error al inicializar Firebase o cargar datos en onMounted:", e);
+    logger.error("Error al inicializar Firebase o cargar datos en onMounted:", e);
     // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
     // o cargando datos de respaldo/ejemplo.
   }

@@ -1,5 +1,6 @@
 // src/utils/formatters.js
 import { Timestamp } from 'firebase/firestore';
+import logger from "@/utils/logger";
 
 /**
  * Parsea de forma segura un valor de fecha (Timestamp, Date, string) a un objeto Date.
@@ -32,10 +33,10 @@ export const safeParseDate = (dateValue) => {
         const dateObj = new Date(dateValue);
         if (!isNaN(dateObj.getTime())) return dateObj;
 
-        console.warn('Could not parse date value:', dateValue);
+        logger.warn('Could not parse date value:', dateValue);
         return null; // Fallback
     } catch (e) {
-        console.warn('Error parsing date value:', dateValue, e);
+        logger.warn('Error parsing date value:', dateValue, e);
         return null;
     }
 };
@@ -54,7 +55,7 @@ export const formatearFecha = (dateInput, incluirAno = true) => {
 
     return incluirAno ? `${day}/${month}/${year}` : `${day}/${month}`;
   } catch (e) {
-    console.error("Error formateando fecha:", dateInput, e);
+    logger.error("Error formateando fecha:", dateInput, e);
     return 'Error Fecha';
   }
 };

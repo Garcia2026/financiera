@@ -185,6 +185,7 @@
 </template>
 
 <script setup>
+import logger from "@/utils/logger";
 import { ref, onMounted, computed } from 'vue'
 import { collection, getDocs, doc, updateDoc, query, where, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase/firebase' // Asegúrate que la ruta sea correcta
@@ -227,7 +228,7 @@ const cargarTiendasOriginales = async () => {
     todasLasTiendas.value = tiendasTemp
     generarListaDeCobros()
   } catch (error) {
-    console.error("Error cargando tiendas originales:", error)
+    logger.error("Error cargando tiendas originales:", error)
   } finally {
     cargando.value = false
   }
@@ -421,7 +422,7 @@ const marcarComoPagado = async () => {
     // await cargarTiendasOriginales(); // Esto re-generará la lista de cobros
 
   } catch (error) {
-    console.error("Error al marcar como pagado:", error);
+    logger.error("Error al marcar como pagado:", error);
     // Aquí podrías mostrar una notificación de error al usuario
   } finally {
     mostrarConfirmacionPago.value = false;
@@ -436,7 +437,7 @@ const verDetallesTienda = (tiendaId) => {
         tiendaParaDetalle.value = tienda;
         mostrarDetallesTienda.value = true;
     } else {
-        console.warn("No se encontró la tienda para detalles con ID:", tiendaId);
+        logger.warn("No se encontró la tienda para detalles con ID:", tiendaId);
         // Podrías mostrar un mensaje al usuario
     }
 };

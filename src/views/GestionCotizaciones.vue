@@ -433,6 +433,7 @@
 </template>
 
 <script setup>
+import logger from "@/utils/logger";
 import { ref, computed, onMounted, watch } from 'vue';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp, Timestamp, query, orderBy, where, getCountFromServer } from 'firebase/firestore';
 import { db } from '../firebase/firebase'; // Asegúrate que la ruta a tu config de Firebase sea correcta
@@ -551,7 +552,7 @@ const generarNumeroCotizacion = async () => {
         const consecutivo = snapshot.data().count + 1;
         return `${prefijo}${String(consecutivo).padStart(3, '0')}`;
     } catch (error) {
-        console.error("Error generando número de cotización:", error);
+        logger.error("Error generando número de cotización:", error);
         return `${prefijo}${String(Math.floor(Math.random() * 900) + 100).padStart(3, '0')}`; 
     }
 };
@@ -610,7 +611,7 @@ const cargarCotizaciones = async () => {
     const querySnapshot = await getDocs(q);
     cotizaciones.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
-    console.error("Error cargando cotizaciones: ", error);
+    logger.error("Error cargando cotizaciones: ", error);
     alert("Error al cargar las cotizaciones. Por favor, intente de nuevo.");
   } finally {
     cargandoCotizaciones.value = false;
@@ -624,7 +625,7 @@ const abrirModalNuevaCotizacion = async () => {
   try {
     nuevaCotizacion.value.numeroCotizacion = await generarNumeroCotizacion();
   } catch (e) {
-    console.error("Fallo al generar número de cotización inicial:", e)
+    logger.error("Fallo al generar número de cotización inicial:", e)
   }
   mostrarModalCotizacion.value = true;
 };
@@ -643,7 +644,7 @@ const editarCotizacion = (cot) => {
     } else if (typeof dateField === 'string' && dateField.match(/^\d{4}-\d{2}-\d{2}/)) { 
         return dateField.split('T')[0]; 
     }
-    console.warn("Formato de fecha no reconocido para input:", dateField);
+    logger.warn("Formato de fecha no reconocido para input:", dateField);
     const hoy = new Date();
     return `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
   };
@@ -743,7 +744,7 @@ const guardarCotizacion = async () => {
     cerrarModalCotizacion();
     await cargarCotizaciones();
   } catch (error) {
-    console.error("Error guardando cotización: ", error);
+    logger.error("Error guardando cotización: ", error);
     alert("Error al guardar la cotización: " + error.message);
   } finally {
     cargandoGuardarCotizacion.value = false;
@@ -768,7 +769,7 @@ const ejecutarEliminarCotizacion = async () => {
         await cargarCotizaciones();
         alert("Cotización eliminada con éxito.");
     } catch (error) { 
-        console.error("Error eliminando cotización:", error);
+        logger.error("Error eliminando cotización:", error);
         alert("Error al eliminar la cotización."); 
     } finally { 
         mostrarConfirmacionEliminar.value = false; 

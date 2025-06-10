@@ -206,6 +206,7 @@
 </template>
 
 <script setup>
+import logger from "@/utils/logger";
 import { ref, computed, onMounted, watch, shallowRef } from 'vue';
 import { collection, getDocs, Timestamp, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase/firebase'; // Asegúrate que la ruta sea correcta
@@ -344,7 +345,7 @@ const cargarDatosGlobales = async () => { /* ... (sin cambios) ... */
     todosLosGastos.value = gastosSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     todosMovimientosExtras.value = movimientosExtrasSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (e) {
-    console.error("Error cargando datos globales:", e);
+    logger.error("Error cargando datos globales:", e);
     errorGlobal.value = "No se pudieron cargar los datos para las estadísticas. Por favor, intente de nuevo.";
     todasLasTiendas.value = []; todosLosGastos.value = []; todosMovimientosExtras.value = [];
   } finally { cargandoGlobal.value = false; }

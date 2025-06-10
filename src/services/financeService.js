@@ -1,5 +1,6 @@
 // src/services/financeService.js
 import { Timestamp } from 'firebase/firestore'
+import logger from "@/utils/logger";
 
 /**
  * Calcula el total de un array de items basado en un campo específico
@@ -50,7 +51,7 @@ export const filtrarPorRangoFechas = (items = [], fechaInicio, fechaFin, campoFe
       
       return itemDate >= fechaInicio && itemDate <= fechaFin;
     } catch (error) {
-      console.error('Error al procesar fecha:', error, item);
+      logger.error('Error al procesar fecha:', error, item);
       return false;
     }
   });

@@ -159,6 +159,7 @@
 </template>
 
 <script setup>
+import logger from "@/utils/logger";
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
@@ -271,7 +272,7 @@ const logout = async () => {
     await signOut(auth)
     router.push('/login')
   } catch (error) {
-    console.error('Error al cerrar sesión:', error)
+    logger.error('Error al cerrar sesión:', error)
   }
 }
 

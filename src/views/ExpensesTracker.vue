@@ -375,6 +375,7 @@
 </template>
 
 <script setup>
+import logger from "@/utils/logger";
 import { ref, computed, onMounted, watch, shallowRef, reactive } from 'vue';
 import { Doughnut, Bar, Line } from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Filler } from 'chart.js';
@@ -675,7 +676,7 @@ const handleAction = async (actionType, actionFn, successMsg, errorMsg) => {
         alert(successMsg);
         await cargarDatos();
     } catch (error) {
-        console.error(errorMsg, error);
+        logger.error(errorMsg, error);
         errorMessage.value = `${errorMsg}: ${error.message}`;
         alert(errorMessage.value);
     } finally {
@@ -871,7 +872,7 @@ const cargarDatos = async () => {
         uniqueCategories.value = Array.from(categoriesSet).sort();
 
     } catch (error) {
-        console.error("Error cargando datos de Firebase:", error);
+        logger.error("Error cargando datos de Firebase:", error);
         errorMessage.value = "Error al cargar los datos. Revisa la consola y tu conexión a Firebase.";
         alert(errorMessage.value);
     } finally {
