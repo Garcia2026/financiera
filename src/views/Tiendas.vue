@@ -520,7 +520,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, getDoc, serverTimestamp, Timestamp, query, where } from 'firebase/firestore'
 // Asegúrate que la ruta a tu configuración de Firebase sea correcta
-// import { db } from '../firebase/firebase' // Ejemplo: Verifica esta línea
+// import { db } from '../firebase.js' // Ejemplo: Verifica esta línea
 // Para este ejemplo, asumiré que 'db' está disponible globalmente o inyectado de otra forma si la línea anterior está comentada.
 // Si estás usando un proyecto sin Firebase, puedes comentar las importaciones de Firebase y las funciones que lo usan.
 let db = null; // Initialize db as null, will be set in onMounted
@@ -950,8 +950,8 @@ onMounted(async () => {
   console.log("Tiendas (Light Theme with Teal/Emerald - Suspense Fix) montado.");
   try {
     // Intenta importar db y luego inicializarlo.
-    // La ruta '../firebase/firebase' debe ser correcta respecto a la ubicación de este componente.
-    const firebaseModule = await import('../firebase/firebase');
+    // La ruta '../firebase.js' debe ser correcta respecto a la ubicación de este componente.
+    const firebaseModule = await import('../firebase.js');
     db = firebaseModule.db; // Asume que firebase.js exporta 'db'
     console.log("Firebase DB initialized in onMounted:", db);
 

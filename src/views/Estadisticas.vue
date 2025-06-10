@@ -208,7 +208,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, shallowRef } from 'vue';
 import { collection, getDocs, Timestamp, query, orderBy } from 'firebase/firestore';
-import { db } from '../firebase/firebase'; // Asegúrate que la ruta sea correcta
+import { db } from '../firebase.js'; // Asegúrate que la ruta sea correcta
 
 // Importaciones de Chart.js y vue-chartjs
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Filler } from 'chart.js';
