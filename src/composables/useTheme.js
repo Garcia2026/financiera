@@ -4,17 +4,19 @@ import { ref, onMounted, readonly } from 'vue'
 const THEME_STORAGE_KEY = 'app-theme'
 
 // Estado reactivo para el tema actual
-const currentTheme = ref('light')
+const currentTheme = ref('tiendas')
 
 export function useTheme() {
   const applyTheme = (themeName) => {
-    document.documentElement.classList.remove('theme-dark', 'theme-corporativo', 'theme-md3')
+    document.documentElement.classList.remove('theme-dark', 'theme-corporativo', 'theme-md3', 'theme-tiendas')
     if (themeName === 'dark') {
       document.documentElement.classList.add('theme-dark')
     } else if (themeName === 'corporativo') {
       document.documentElement.classList.add('theme-corporativo')
     } else if (themeName === 'md3') {
       document.documentElement.classList.add('theme-md3')
+    } else if (themeName === 'tiendas') {
+      document.documentElement.classList.add('theme-tiendas')
     }
     currentTheme.value = themeName
   }
@@ -44,7 +46,7 @@ export function useTheme() {
     ) {
       initialTheme = 'dark'
     } else {
-      initialTheme = 'light'
+      initialTheme = 'tiendas'
     }
     applyTheme(initialTheme)
   }

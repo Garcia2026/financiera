@@ -5,7 +5,7 @@ financiera
 
 ## Theme selection
 
-Use the theme selector in the application's top bar to switch between `light`, `dark`, `corporativo` and the new `md3` (Material Design 3) appearance. The chosen option is saved and restored on your next visit.
+Use the theme selector in the application's top bar to switch between `light`, `dark`, `corporativo`, `md3` (Material Design 3) and the new `tiendas` appearance. The chosen option is saved and restored on your next visit.
 
 ## Environment variables
 
@@ -45,7 +45,7 @@ module.exports = {
 }
 ```
 
-Colors and themes are defined using CSS variables in `src/assets/css/themes.css`. Three themes are available: **light**, **dark** and **corporativo**. Each theme defines variables such as `--bg-primary`, `--text-primary` and brand accent colors.
+Colors and themes are defined using CSS variables in `src/assets/css/themes.css`. Four themes are available: **light**, **dark**, **corporativo** and **tiendas** (plus the optional **md3**). Each theme defines variables such as `--bg-primary`, `--text-primary` and brand accent colors.
 
 Example corporate palette:
 - `--bg-primary: #f5f7fa`
