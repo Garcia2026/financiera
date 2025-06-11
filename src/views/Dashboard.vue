@@ -83,6 +83,7 @@
           </div>
         </div>
       </div>
+  <QuickActions :actions="quickActions" class="mt-4" />
 
   <div v-if="vistaSeleccionada === 'general' && !isLoading">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 mb-10">
@@ -334,13 +335,38 @@ import { useDashboardOptions } from "../composables/useDashboard"
 import { useAppStore } from "../stores"
 import SummaryCard from "../components/SummaryCard.vue"
 import DataTable from "../components/DataTable.vue"
+import QuickActions from "../components/QuickActions.vue"
+import router from "../router"
 
 export default {
   name: "EnterpriseDashboard",
-  components: { SummaryCard, DataTable },
+  components: { SummaryCard, DataTable, QuickActions },
   setup() {
     const store = useAppStore();
-    return { store };
+    const quickActions = [
+      {
+        label: 'Nueva Tienda',
+        icon: {
+          template: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>`
+        },
+        onClick: () => { router.push('/tiendas'); }
+      },
+      {
+        label: 'Registrar Cobro',
+        icon: {
+          template: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6m7 2a2 2 0 012 2H5a2 2 0 012-2h12z" /></svg>`
+        },
+        onClick: () => { router.push('/cobros'); }
+      },
+      {
+        label: 'Gestión de Cotizaciones',
+        icon: {
+          template: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`
+        },
+        onClick: () => { router.push('/cotizaciones'); }
+      }
+    ];
+    return { store, quickActions };
   },
   ...useDashboardOptions()
 }
