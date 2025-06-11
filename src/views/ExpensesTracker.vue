@@ -961,22 +961,22 @@ const filterByDate = () => {};
     .btn-secondary { @apply bg-white hover:bg-gray-100 text-gray-700 font-medium py-2.5 px-5 rounded-lg border border-gray-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed; }
     .btn-icon { @apply p-2 rounded-full transition-colors duration-150; }
     
-    .summary-card { @apply bg-white rounded-xl shadow-sm p-5 border-t-4 flex flex-col; }
-    .summary-title { @apply text-sm font-medium text-gray-500 mb-1; }
+    .summary-card { @apply rounded-xl shadow-sm p-5 border-t-4 flex flex-col; background-color: var(--bg-secondary); }
+    .summary-title { @apply text-sm font-medium mb-1; color: var(--text-secondary); }
     .summary-amount { @apply text-2xl font-bold leading-tight; }
     .summary-icon-bg { @apply flex items-center justify-center w-12 h-12 rounded-full; }
     
-    .chart-container { @apply bg-white rounded-xl shadow-sm p-4 sm:p-6; }
-    .chart-title { @apply text-lg font-semibold text-gray-800 mb-4; }
+    .chart-container { @apply rounded-xl shadow-sm p-4 sm:p-6; background-color: var(--bg-secondary); }
+    .chart-title { @apply text-lg font-semibold mb-4; color: var(--text-primary); }
     .chart-wrapper { @apply h-80 relative; }
-    .loading-placeholder, .no-data-placeholder { @apply absolute inset-0 flex items-center justify-center text-gray-500 text-sm bg-gray-50 rounded-md border border-dashed border-gray-300; }
+    .loading-placeholder, .no-data-placeholder { @apply absolute inset-0 flex items-center justify-center text-sm rounded-md border border-dashed; color: var(--text-secondary); background-color: var(--bg-primary); border-color: var(--border-primary); }
     
     .modal-overlay { @apply fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-50 flex justify-center items-center p-4; }
-    .modal-container { @apply bg-white rounded-xl shadow-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto; }
-    .modal-title { @apply text-xl font-bold text-gray-800 mb-5 text-center; }
+    .modal-container { @apply rounded-xl shadow-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto; background-color: var(--bg-secondary); }
+    .modal-title { @apply text-xl font-bold mb-5 text-center; color: var(--text-primary); }
     .alert-error { @apply bg-red-100 border border-red-200 text-red-700 text-sm p-3 rounded-md mb-4; }
 
-    .list-item-detailed { @apply bg-white p-3 rounded-lg flex justify-between items-center border border-gray-200 hover:bg-gray-50 transition-colors; }
+    .list-item-detailed { @apply p-3 rounded-lg flex justify-between items-center border transition-colors; background-color: var(--bg-secondary); border-color: var(--border-secondary); }
     
     .modal-enter-active, .modal-leave-active { transition: opacity 0.3s ease; }
     .modal-enter-from, .modal-leave-to { opacity: 0; }
