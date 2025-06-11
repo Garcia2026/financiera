@@ -204,3 +204,53 @@
   --chart-legend-text: #49454F;
 }
 
+
+/* ------------------------------ */
+/* --- TEMA TIENDAS (NUEVO) ----- */
+/* ------------------------------ */
+.theme-tiendas {
+  --bg-primary: #f7f6f3;
+  --bg-secondary: #ffffff;
+  --bg-accent: #fff8e6;
+  --bg-navbar: rgba(245, 158, 11, 0.85);
+  --bg-modal: rgba(255, 255, 255, 0.95);
+
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-accent: #d97706;
+  --text-on-accent-bg: #ffffff;
+
+  --border-primary: #d1d5db;
+  --border-secondary: #e5e7eb;
+  --border-accent: #fbbf24;
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-navbar: rgba(245, 158, 11, 0.2);
+
+  --brand-emerald: #34d399;
+  --brand-emerald-text: #059669;
+  --brand-red: #ef4444;
+  --brand-red-text: #dc2626;
+  --brand-blue: #3b82f6;
+  --brand-blue-text: #2563eb;
+  --brand-purple: #a855f7;
+  --brand-purple-text: #7e22ce;
+  --brand-pink: #ec4899;
+  --brand-pink-text: #db2777;
+  --brand-yellow: #fbbf24;
+  --brand-yellow-text: #d97706;
+
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-text: #1f2937;
+  --input-focus-ring: #f59e0b;
+
+  --scrollbar-thumb: #fbbf24;
+  --scrollbar-track: #fef3c7;
+
+  --chart-grid-color: rgba(0, 0, 0, 0.1);
+  --chart-tick-color: #4b5563;
+  --chart-tooltip-bg: rgba(255, 255, 255, 0.95);
+  --chart-tooltip-text: #1f2937;
+  --chart-legend-text: #4b5563;
+}
