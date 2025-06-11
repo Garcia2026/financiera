@@ -1,36 +1,36 @@
 <template>
-  <div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 text-slate-700">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6" style="color: var(--text-primary)">
 
     <div class="md3-card mb-8 py-4 px-6">
       <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-emerald-500 mb-2 text-center">Registro de Tiendas</h2>
-      <p class="text-slate-500 text-center text-sm md:text-base">Gestiona y controla tus tiendas y servicios</p>
+      <p class="text-center text-sm md:text-base" style="color: var(--text-secondary)">Gestiona y controla tus tiendas y servicios</p>
     </div>
 
     <div v-if="tiendas.length > 0" class="mb-8">
-      <h3 class="text-xl font-semibold text-teal-600 mb-4">Resumen General</h3>
+      <h3 class="text-xl font-semibold mb-4" style="color: var(--brand-emerald-text)">Resumen General</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10 flex items-center gap-3">
-          <div class="p-2 bg-teal-100 text-teal-600 rounded-full">
+        <div class="md3-card border-l-4 transition-all duration-300 flex items-center gap-3" style="border-left-color: var(--brand-emerald)">
+          <div class="p-2 rounded-full" style="background-color: var(--brand-emerald); color: var(--text-on-accent-bg)">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l1.664 12.42A2 2 0 006.653 21h10.694a2 2 0 001.989-1.58L21 7" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3l-4 4-4-4" />
             </svg>
           </div>
           <div>
-            <h4 class="font-bold text-lg text-slate-800 mb-1">Total de Tiendas Registradas</h4>
-            <p class="text-3xl font-bold text-slate-700">{{ resumenGeneral.totalTiendas }}</p>
+            <h4 class="font-bold text-lg mb-1" style="color: var(--text-primary)">Total de Tiendas Registradas</h4>
+            <p class="text-3xl font-bold" style="color: var(--text-primary)">{{ resumenGeneral.totalTiendas }}</p>
           </div>
         </div>
-        <div class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10 flex items-center gap-3">
-          <div class="p-2 bg-teal-100 text-teal-600 rounded-full">
+        <div class="md3-card border-l-4 transition-all duration-300 flex items-center gap-3" style="border-left-color: var(--brand-emerald)">
+          <div class="p-2 rounded-full" style="background-color: var(--brand-emerald); color: var(--text-on-accent-bg)">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-3.866 0-7 1.343-7 3v4a2 2 0 002 2h10a2 2 0 002-2v-4c0-1.657-3.134-3-7-3z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8V6m0 0V4m0 2a2 2 0 114 0" />
             </svg>
           </div>
           <div>
-            <h4 class="font-bold text-lg text-slate-800 mb-1">Costo Total General</h4>
-            <p class="text-3xl font-bold text-slate-700">Q{{ (resumenGeneral.costoTotalGeneral || 0).toFixed(2) }}</p>
+            <h4 class="font-bold text-lg mb-1" style="color: var(--text-primary)">Costo Total General</h4>
+            <p class="text-3xl font-bold" style="color: var(--text-primary)">Q{{ (resumenGeneral.costoTotalGeneral || 0).toFixed(2) }}</p>
           </div>
         </div>
       </div>
@@ -49,20 +49,20 @@
             </svg>
           </div>
           <div>
-            <h4 class="font-bold text-lg text-slate-800 mb-1">{{ marcaResumen.nombre }}</h4>
-            <p class="text-sm text-slate-500">Tiendas: <span class="font-medium text-slate-700">{{ marcaResumen.conteo }}</span></p>
-            <p class="text-sm text-slate-500">Ingresos Totales: <span class="font-medium text-slate-700">Q{{ (marcaResumen.ingresos || 0).toFixed(2) }}</span></p>
+            <h4 class="font-bold text-lg mb-1" style="color: var(--text-primary)">{{ marcaResumen.nombre }}</h4>
+            <p class="text-sm" style="color: var(--text-secondary)">Tiendas: <span class="font-medium" style="color: var(--text-primary)">{{ marcaResumen.conteo }}</span></p>
+            <p class="text-sm" style="color: var(--text-secondary)">Ingresos Totales: <span class="font-medium" style="color: var(--text-primary)">Q{{ (marcaResumen.ingresos || 0).toFixed(2) }}</span></p>
           </div>
         </div>
       </div>
     </div>
 
     <div v-if="resumenPorConsultor.length > 0" class="mb-8">
-      <h3 class="text-xl font-semibold text-teal-600 mb-4">Resumen por Consultor</h3>
+      <h3 class="text-xl font-semibold mb-4" style="color: var(--brand-emerald-text)">Resumen por Consultor</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div v-for="(consultorResumen, index) in resumenPorConsultor" :key="index"
-             class="md3-card border-l-4 border-teal-500 transition-all duration-300 hover:shadow-teal-500/10 flex items-center gap-3">
-          <div class="p-2 bg-teal-100 text-teal-600 rounded-full">
+             class="md3-card border-l-4 transition-all duration-300 flex items-center gap-3" style="border-left-color: var(--brand-emerald)">
+          <div class="p-2 rounded-full" style="background-color: var(--brand-emerald); color: var(--text-on-accent-bg)">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20H4v-2a3 3 0 015.356-1.857"/>
@@ -70,9 +70,9 @@
             </svg>
           </div>
           <div>
-            <h4 class="font-bold text-lg text-slate-800 mb-1">{{ consultorResumen.nombre }}</h4>
-            <p class="text-sm text-slate-500">Tiendas Asignadas: <span class="font-medium text-slate-700">{{ consultorResumen.conteo }}</span></p>
-            <p class="text-sm text-slate-500">Ingresos Totales: <span class="font-medium text-slate-700">Q{{ (consultorResumen.ingresos || 0).toFixed(2) }}</span></p>
+            <h4 class="font-bold text-lg mb-1" style="color: var(--text-primary)">{{ consultorResumen.nombre }}</h4>
+            <p class="text-sm" style="color: var(--text-secondary)">Tiendas Asignadas: <span class="font-medium" style="color: var(--text-primary)">{{ consultorResumen.conteo }}</span></p>
+            <p class="text-sm" style="color: var(--text-secondary)">Ingresos Totales: <span class="font-medium" style="color: var(--text-primary)">Q{{ (consultorResumen.ingresos || 0).toFixed(2) }}</span></p>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
 
     <div class="md3-card mb-10 overflow-hidden">
       <div class="bg-slate-50 border-b border-gray-200 px-6 py-4">
-        <h3 class="text-lg font-semibold text-teal-600">
+        <h3 class="text-lg font-semibold" style="color: var(--brand-emerald-text)">
           {{ modoEdicion ? 'Editar Tienda' : 'Nueva Tienda' }}
         </h3>
       </div>
