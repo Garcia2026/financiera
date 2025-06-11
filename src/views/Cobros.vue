@@ -1,38 +1,38 @@
 <template>
-  <div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 text-gray-200">
+<div class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 text-slate-700">
 
-    <div class="bg-gradient-to-r from-gray-900/80 via-gray-800/80 to-gray-900/80 backdrop-blur-sm border border-cyan-500/20 rounded-lg shadow-lg shadow-cyan-500/10 mb-8 py-4 px-6 transform transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/20">
-      <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-300 glow-cyan mb-2 text-center">Gestión de Cobros</h2>
-      <p class="text-cyan-100/70 text-center text-sm md:text-base">Visualiza y administra los cobros de tus tiendas y servicios</p>
+    <div class="md3-card mb-8 py-4 px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-emerald-500 mb-2 text-center">Gestión de Cobros</h2>
+      <p class="text-slate-500 text-center text-sm md:text-base">Visualiza y administra los cobros de tus tiendas y servicios</p>
     </div>
 
     <div v-if="!cargando" class="mb-8">
       <h3 class="text-xl font-semibold text-cyan-300 mb-4">Resumen General de Cobros</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="glass-card border-l-4 border-green-500 hover:shadow-green-500/10">
-          <h4 class="font-bold text-lg text-gray-100 mb-1">Total Pagado</h4>
-          <p class="text-2xl font-medium text-green-400">Q{{ (resumenCobros.totalPagado || 0).toFixed(2) }}</p>
-          <p class="text-sm text-gray-400">{{ resumenCobros.cantidadPagados }} cobros</p>
+        <div class="md3-card border-l-4 border-green-500 transition-all duration-300 hover:shadow-green-500/10">
+          <h4 class="font-bold text-lg text-slate-800 mb-1">Total Pagado</h4>
+          <p class="text-2xl font-medium text-green-600">Q{{ (resumenCobros.totalPagado || 0).toFixed(2) }}</p>
+          <p class="text-sm text-slate-500">{{ resumenCobros.cantidadPagados }} cobros</p>
         </div>
-        <div class="glass-card border-l-4 border-yellow-500 hover:shadow-yellow-500/10">
-          <h4 class="font-bold text-lg text-gray-100 mb-1">Total Pendiente</h4>
-          <p class="text-2xl font-medium text-yellow-400">Q{{ (resumenCobros.totalPendiente || 0).toFixed(2) }}</p>
-          <p class="text-sm text-gray-400">{{ resumenCobros.cantidadPendientes }} cobros</p>
+        <div class="md3-card border-l-4 border-yellow-500 transition-all duration-300 hover:shadow-yellow-500/10">
+          <h4 class="font-bold text-lg text-slate-800 mb-1">Total Pendiente</h4>
+          <p class="text-2xl font-medium text-yellow-600">Q{{ (resumenCobros.totalPendiente || 0).toFixed(2) }}</p>
+          <p class="text-sm text-slate-500">{{ resumenCobros.cantidadPendientes }} cobros</p>
         </div>
-        <div class="glass-card border-l-4 border-red-500 hover:shadow-red-500/10">
-          <h4 class="font-bold text-lg text-gray-100 mb-1">Total Vencido</h4>
-          <p class="text-2xl font-medium text-red-400">Q{{ (resumenCobros.totalVencido || 0).toFixed(2) }}</p>
-          <p class="text-sm text-gray-400">{{ resumenCobros.cantidadVencidos }} cobros</p>
+        <div class="md3-card border-l-4 border-red-500 transition-all duration-300 hover:shadow-red-500/10">
+          <h4 class="font-bold text-lg text-slate-800 mb-1">Total Vencido</h4>
+          <p class="text-2xl font-medium text-red-600">Q{{ (resumenCobros.totalVencido || 0).toFixed(2) }}</p>
+          <p class="text-sm text-slate-500">{{ resumenCobros.cantidadVencidos }} cobros</p>
         </div>
-        <div class="glass-card border-l-4 border-blue-500 hover:shadow-blue-500/10">
-          <h4 class="font-bold text-lg text-gray-100 mb-1">Cobros Proyectados (Próx. Mes)</h4>
-          <p class="text-2xl font-medium text-blue-400">Q{{ (resumenCobros.totalProyectado || 0).toFixed(2) }}</p>
-          <p class="text-sm text-gray-400">{{ resumenCobros.cantidadProyectados }} cobros</p>
+        <div class="md3-card border-l-4 border-blue-500 transition-all duration-300 hover:shadow-blue-500/10">
+          <h4 class="font-bold text-lg text-slate-800 mb-1">Cobros Proyectados (Próx. Mes)</h4>
+          <p class="text-2xl font-medium text-blue-600">Q{{ (resumenCobros.totalProyectado || 0).toFixed(2) }}</p>
+          <p class="text-sm text-slate-500">{{ resumenCobros.cantidadProyectados }} cobros</p>
         </div>
       </div>
     </div>
 
-    <div class="glass-container rounded-xl shadow-lg border border-gray-700/30 p-4 mb-6">
+    <div class="md3-card p-4 mb-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="w-full md:w-auto flex flex-col sm:flex-row flex-wrap items-center gap-3">
           <div class="relative flex-grow min-w-[200px]">
@@ -43,19 +43,19 @@
           <div class="relative flex-grow min-w-[200px]">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" /></svg></div>
             <select v-model="filtroEstadoCobro" class="input-primary select-input pl-10 pr-8 w-full">
-              <option value="" class="option-dark text-gray-500">Todos los Estados</option>
-              <option value="Pendiente de Pago" class="option-dark">Pendiente de Pago</option>
-              <option value="Vencido" class="option-dark">Vencido</option>
-              <option value="Pagado" class="option-dark">Pagado</option>
-              <option value="Proyectado" class="option-dark">Proyectado</option>
+              <option value="" class="option-light text-gray-500">Todos los Estados</option>
+              <option value="Pendiente de Pago" class="option-light">Pendiente de Pago</option>
+              <option value="Vencido" class="option-light">Vencido</option>
+              <option value="Pagado" class="option-light">Pagado</option>
+              <option value="Proyectado" class="option-light">Proyectado</option>
             </select>
              <button v-if="filtroEstadoCobro" @click="filtroEstadoCobro = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg></button>
           </div>
           <div class="relative flex-grow min-w-[200px]">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg></div>
             <select v-model="filtroMesCobro" class="input-primary select-input pl-10 pr-8 w-full">
-                <option value="" class="option-dark text-gray-500">Todos los meses</option>
-                <option v-for="(mes, index) in mesesServicioDisponibles" :key="index" :value="mes" class="option-dark">{{ formatearMes(mes) }}</option>
+                <option value="" class="option-light text-gray-500">Todos los meses</option>
+                <option v-for="(mes, index) in mesesServicioDisponibles" :key="index" :value="mes" class="option-light">{{ formatearMes(mes) }}</option>
             </select>
             <button v-if="filtroMesCobro" @click="filtroMesCobro = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg></button>
           </div>
@@ -63,14 +63,14 @@
       </div>
     </div>
 
-    <div class="glass-container rounded-xl shadow-lg border border-gray-700/30 overflow-hidden mb-10 relative">
-      <div v-if="cargando" class="loading-overlay">
-        <svg class="animate-spin h-8 w-8 text-cyan-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-        <span class="ml-2 text-gray-200">Cargando Cobros...</span>
+    <div class="md3-card overflow-hidden mb-10 relative">
+      <div v-if="cargando" class="loading-overlay-light">
+        <svg class="animate-spin h-8 w-8 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <span class="ml-2 text-slate-600">Cargando Cobros...</span>
       </div>
       <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-700">
-          <thead class="bg-gray-900/70 backdrop-blur-sm">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-slate-100">
             <tr>
               <th class="th-table">Tienda</th>
               <th class="th-table hidden md:table-cell">Mes Servicio</th>
@@ -83,17 +83,17 @@
               <th class="th-table">Acciones</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-700/50">
-            <tr v-for="cobro in cobrosFiltrados" :key="cobro.tiendaId + '-' + cobro.mesServicio" class="hover:bg-gray-700/40 transition-colors duration-150">
+          <tbody class="divide-y divide-gray-200">
+            <tr v-for="cobro in cobrosFiltrados" :key="cobro.tiendaId + '-' + cobro.mesServicio" class="hover:bg-slate-100 transition-colors duration-150">
               <td class="td-table">
-                <div class="font-medium text-gray-100 hover:text-cyan-300 transition-colors">{{ cobro.nombreTienda }}</div>
-                <div v-if="cobro.ods" class="text-xs text-gray-500">ODS: {{ cobro.ods }}</div>
+                <div class="font-medium text-slate-800 hover:text-teal-600 transition-colors">{{ cobro.nombreTienda }}</div>
+                <div v-if="cobro.ods" class="text-xs text-slate-500">ODS: {{ cobro.ods }}</div>
               </td>
               <td class="td-table hidden md:table-cell">{{ formatearMes(cobro.mesServicio) }}</td>
               <td class="td-table font-semibold">Q{{ (cobro.costo || 0).toFixed(2) }}</td>
               <td class="td-table hidden lg:table-cell">
-                <span class="badge" :class="{'text-emerald-400': cobro.tipoPago === 'Contado', 'text-cyan-400': cobro.tipoPago === 'Crédito'}">{{ cobro.tipoPago }}</span>
-                <span v-if="cobro.tipoPago === 'Crédito'" class="text-xs text-gray-500 ml-1">({{ cobro.diasCredito }} días)</span>
+                <span class="badge" :class="{'text-emerald-600': cobro.tipoPago === 'Contado', 'text-teal-600': cobro.tipoPago === 'Crédito'}">{{ cobro.tipoPago }}</span>
+                <span v-if="cobro.tipoPago === 'Crédito'" class="text-xs text-slate-500 ml-1">({{ cobro.diasCredito }} días)</span>
               </td>
               <td class="td-table hidden md:table-cell">{{ formatearFecha(cobro.fechaFacturacion, false) }}</td>
               <td class="td-table font-medium" :class="getVencimientoColor(cobro.diasParaVencer, cobro.estadoCobro)">{{ formatearFecha(cobro.fechaVencimiento, false) }}</td>
@@ -110,13 +110,13 @@
                 <button
                   v-if="cobro.estadoCobro !== 'Pagado' && cobro.estadoCobro !== 'Proyectado'"
                   @click="confirmarMarcarComoPagado(cobro)"
-                  class="btn-icon text-green-400 hover:text-green-300"
+                  class="btn-icon text-green-600 hover:text-green-500"
                   title="Marcar como Pagado">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
                  <button
                   @click="verDetallesTienda(cobro.tiendaId)"
-                  class="btn-icon text-cyan-400 hover:text-cyan-300 ml-1"
+                  class="btn-icon text-teal-600 hover:text-teal-500 ml-1"
                   title="Ver Detalles de Tienda">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><title>Ver Detalles</title><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                 </button>
@@ -125,9 +125,9 @@
             <tr v-if="cobrosFiltrados.length === 0 && !cargando">
               <td colspan="9" class="px-4 py-8 text-center">
                 <div class="flex flex-col items-center justify-center space-y-3">
-                  <svg class="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                  <p class="text-gray-500 text-lg">No se encontraron cobros</p>
-                  <p class="text-gray-600 text-sm">{{ busquedaCobro || filtroEstadoCobro || filtroMesCobro ? 'Prueba con otros criterios de búsqueda o filtro' : 'No hay tiendas con cobros generados o proyectados' }}</p>
+                  <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                  <p class="text-slate-500 text-lg">No se encontraron cobros</p>
+                  <p class="text-slate-600 text-sm">{{ busquedaCobro || filtroEstadoCobro || filtroMesCobro ? 'Prueba con otros criterios de búsqueda o filtro' : 'No hay tiendas con cobros generados o proyectados' }}</p>
                 </div>
               </td>
             </tr>
@@ -185,10 +185,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { collection, getDocs, doc, updateDoc, query, where, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase.js' // Asegúrate que la ruta sea correcta
-import { useTheme } from '../composables/useTheme'
 
 const todasLasTiendas = ref([])
 const listaDeCobros = ref([])
@@ -203,9 +202,6 @@ const cobroSeleccionado = ref(null)
 
 const mostrarDetallesTienda = ref(false)
 const tiendaParaDetalle = ref(null)
-
-const { currentTheme, setThemePreference } = useTheme()
-const previousTheme = ref(currentTheme.value)
 
 // Colores de Marca (copiado de tu script de Tiendas)
 const brandColors = {
@@ -505,12 +501,7 @@ const getVencimientoColor = (diasParaVencer, estadoCobro) => {
 
 
 onMounted(async () => {
-  setThemePreference('md3')
   await cargarTiendasOriginales()
-})
-
-onUnmounted(() => {
-  setThemePreference(previousTheme.value)
 })
 
 </script>
@@ -528,12 +519,20 @@ onUnmounted(() => {
     @apply bg-gray-800/60 backdrop-blur-md rounded-lg shadow p-4; /* Para tarjetas de resumen */
 }
 
+/* Modern Material Design 3 style card */
+.md3-card {
+  @apply bg-white rounded-2xl shadow-sm border border-gray-200 p-4 transition-transform duration-200 ease-in-out;
+}
+.md3-card:hover {
+  @apply shadow-md -translate-y-1;
+}
+
 /* Inputs y Textarea */
 .input-primary {
-  @apply w-full px-3 py-2 rounded-lg border border-gray-600/70 bg-gray-900/40 text-gray-200 placeholder-gray-500 /* Fondo más oscuro/transparente */
-        focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-500 /* Color de foco cyan */
-        transition-all duration-150 text-sm shadow-inner shadow-black/30 /* Sombra interior más notable */
-        disabled:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-slate-700 placeholder-gray-400
+        focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500
+        transition-all duration-150 text-sm shadow-sm
+        disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed;
 }
 /* Estilo específico para selects para mejorar apariencia */
 .select-input {
@@ -546,8 +545,8 @@ onUnmounted(() => {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2322d3ee' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); /* Flecha cyan en focus */
 }
 /* Estilo para las opciones del select */
-.option-dark {
-  @apply bg-gray-800 text-gray-200;
+.option-light {
+  @apply bg-white text-slate-700;
 }
 
 .label-form { @apply block text-sm font-medium text-gray-400 mb-1.5; }
@@ -557,11 +556,11 @@ onUnmounted(() => {
 .btn-secondary { @apply px-4 py-2 bg-gray-600/70 hover:bg-gray-500/70 border border-gray-500/50 text-gray-200 font-semibold rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-400 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center; }
 .btn-icon { @apply p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-gray-800 focus:ring-cyan-400 transition duration-150 ease-in-out; }
 
-.loading-overlay { @apply absolute inset-0 bg-gray-800 bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-10 rounded-xl; }
+.loading-overlay-light { @apply absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center z-10 rounded-xl; }
 
 /* Tabla */
-.th-table { @apply px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider sticky top-0 z-10 bg-gray-900/80 backdrop-blur-sm border-b border-gray-700; }
-.td-table { @apply px-4 py-3 whitespace-nowrap text-sm text-gray-300; }
+.th-table { @apply px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider sticky top-0 z-10 bg-slate-100 border-b border-gray-200; }
+.td-table { @apply px-4 py-3 whitespace-nowrap text-sm text-slate-600; }
 .badge { @apply px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full whitespace-nowrap; }
 
 /* Modales */
