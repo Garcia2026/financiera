@@ -26,9 +26,14 @@ const props = defineProps({
 }
 
 .quick-action {
-  @apply bg-gray-700/60 text-gray-200 px-3 py-1.5 rounded-lg text-sm flex items-center transition-colors border border-gray-600/50;
+  @apply px-3 py-1.5 rounded-lg text-sm flex items-center transition-colors border;
+  background-color: var(--bg-accent);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
 }
 .quick-action:hover {
-  @apply bg-emerald-600/30 border-emerald-500 text-emerald-300;
+  background-color: var(--brand-emerald);
+  border-color: var(--brand-emerald);
+  color: var(--text-on-accent-bg);
 }
 </style>
