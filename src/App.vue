@@ -27,6 +27,7 @@
               <option value="light">Claro</option>
               <option value="dark">Oscuro</option>
               <option value="corporativo">Corporativo</option>
+              <option value="md3">Material 3</option>
             </select>
           </div>
           

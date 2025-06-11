@@ -185,9 +185,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { collection, getDocs, doc, updateDoc, query, where, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase.js' // Asegúrate que la ruta sea correcta
+import { useTheme } from '../composables/useTheme'
 
 const todasLasTiendas = ref([])
 const listaDeCobros = ref([])
@@ -202,6 +203,9 @@ const cobroSeleccionado = ref(null)
 
 const mostrarDetallesTienda = ref(false)
 const tiendaParaDetalle = ref(null)
+
+const { currentTheme, setThemePreference } = useTheme()
+const previousTheme = ref(currentTheme.value)
 
 // Colores de Marca (copiado de tu script de Tiendas)
 const brandColors = {
@@ -501,7 +505,12 @@ const getVencimientoColor = (diasParaVencer, estadoCobro) => {
 
 
 onMounted(async () => {
+  setThemePreference('md3')
   await cargarTiendasOriginales()
+})
+
+onUnmounted(() => {
+  setThemePreference(previousTheme.value)
 })
 
 </script>
