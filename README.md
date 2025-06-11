@@ -61,6 +61,7 @@ The dashboard view (`src/views/Dashboard.vue`) exposes several ready‑made bloc
 - **Summary cards** – `<div class="summary-card">` for KPIs.
 - **Chart containers** – `<div class="chart-container">` for charts.
 - **Metric cards** – `<div class="metric-card">` for compact statistics.
+- **Quick actions** – `<QuickActions>` with shortcuts to common pages.
 
 When adding new metrics reuse these containers to keep consistent spacing and animations. Place new cards within the existing grids and prefer CSS variables for colors so all themes stay in sync.
 
