@@ -81,3 +81,11 @@ Below is a simplified diagram of the intended layout:
 +-----------------------------------------------------------+
 ```
 
+## Running tests
+
+After installing dependencies with `npm install`, run the test suite:
+
+```bash
+npm run test
+```
+
